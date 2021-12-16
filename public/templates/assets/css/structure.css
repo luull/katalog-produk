@@ -716,7 +716,7 @@ code {
 /* User Profile Dropdown*/
 .navbar .navbar-item .nav-item.user-profile-dropdown {
   margin-left: 20px;
-  margin-right: 16px; }
+  margin-right: 50px !important; }
   .navbar .navbar-item .nav-item.user-profile-dropdown .dropdown-menu .user-profile-section {
     padding: 16px 15px;
     border-top-left-radius: 4px;
@@ -1411,7 +1411,8 @@ code {
   .navbar .navbar-item .nav-item.dropdown.message-dropdown, .navbar .navbar-item .nav-item.dropdown.notification-dropdown {
     margin-left: 15px; }
   .navbar .navbar-item .nav-item.user-profile-dropdown {
-    margin-left: 15px; }
+    margin-left: 15px;
+    margin-right: 20px !important; }
   .navbar .language-dropdown .custom-dropdown-icon a.dropdown-toggle {
     min-width: 35px;
     padding: 8px 8px 8px 8px; }

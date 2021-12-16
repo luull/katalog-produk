@@ -25,7 +25,7 @@
                 </li>
                 @else
                 <li class="nav-item align-self-center ml-3">
-                   <a href="/cart" class="position-relative"><span class="badge badge-danger counter mr-4 p-0">{{session('countcart')}}</span> <i class="text-success" data-feather="shopping-cart"></i></a>
+                   <a href="/cart" class="position-relative"><span class="badge badge-danger counter mr-4 p-0">{{session('countcart')}}</span> <i  data-feather="shopping-cart" style="color:#ccc;"></i></a>
                 </li>
                 <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

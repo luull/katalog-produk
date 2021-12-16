@@ -29,9 +29,9 @@ class CartController extends Controller
                 'qty' => $tambah
             ]);
             if($hsl){
-                return redirect('/cart');
+                return redirect('/cart')->with(['message' => 'Barang berhasil ditambah ke keranjang', 'alert' => 'success']);
             }else{
-                return redirect()->back();
+                return redirect()->back()->with(['message' => 'Barang gagal ditambah ke keranjang', 'alert' => 'success']);
             }
         }else {
             $hsl = Cart::create([
@@ -40,9 +40,9 @@ class CartController extends Controller
                 'qty' => $req->qty
             ]);
             if($hsl){
-                return redirect('/cart');
+                return redirect('/cart')->with(['message' => 'Barang berhasil ditambah ke keranjang', 'alert' => 'success']);
             }else{
-                return redirect()->back();
+                return redirect()->back()->with(['message' => 'Barang gagal ditambah ke keranjang', 'alert' => 'success']);
             }
         }
     }

@@ -17,16 +17,24 @@
                         <div class="col-lg-8 mt-4">
 
                             <h4 class="nunito bolder mb-4">Keranjang</h4>
+                            <label class="containers"> Pilih Semua
+                                <input type="checkbox" class="messageCheckbox" name="values" onclick="toggle(this);" />
+                                <span class="checkmark"></span>
+                            </label>
                             @if (session('message'))
                             <div class="alert alert-{{session('alert')}} alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
                                 </button> {{ session('message') }}</div>
-                            @endif
-                            @foreach ( $data as $d )
-                            @if ($d->id_user == session('user-session')->id)
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <div class="row pl-3">
+                                @endif
+                                @foreach ( $data as $d )
+                                @if ($d->id_user == session('user-session')->id)
+                                <div class="card card-cart mb-3 ">
+                                    <label class="containers mt-3"> &nbsp;
+                                        <input type="checkbox" class="messageCheckbox" value="{{$d->id}}"  name="values"/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="card-body">
+                                        <div class="row pl-3">
                                         <div class="col-md-1 col-sm-3 col-xs-3 col-3 align-self-start">
                                             <img alt="avatar" src="{{ asset($d->foto)}}" class="img-fluid">
                                         </div>
@@ -55,23 +63,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <blockquote class="blockquote">
-                                <div class="row">
-                                    <div class="col-md-2 mr-2">
-                                        <img alt="avatar" src="{{ asset($d->foto)}}" class="img-fluid" style="width: 250px !important;">
-                                    </div>
-                                    <div class="col-md-5 align-self-start">
-                                        <p>{{$d->nama_brg}}</p>
-                                        <p>{{$d->harga}}</p>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-end">
-                                    <div class="col-md-4">
-                                        <input  type="text" id="demo6" value="{{$d->qty}}" style="width: 20% !important;" name="qty">
 
-                                    </div>
-                                </div>
-                            </blockquote> --}}
                             @endif
                             @endforeach
                         </div>
@@ -80,3 +72,34 @@
 </div>
 
 @endsection
+@section('script')
+<script>
+    function toggle(source) {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
+    }
+}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  var ckbox = $("input[name='values']");
+  var chkId = '';
+  $('input').on('click', function() {
+
+    if (ckbox.is(':checked')) {
+      $("input[name='values']:checked").each ( function() {
+   			chkId = $(this).val() + ",";
+        chkId = chkId.slice(0, -1);
+ 	  });
+
+       console.log(chkId); // return value of checkbox checked
+    }
+  });
+});
+</script>
+
+@endsection
+
