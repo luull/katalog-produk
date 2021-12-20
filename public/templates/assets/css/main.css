@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin-top: 0;
   margin-bottom: 0.625rem;
-  color: #555555; }
+  color: #070707; }
 
 hr {
   margin-top: 20px;
@@ -2376,8 +2376,11 @@ table .badge-success, table .badge-primary, table .badge-warning, table .badge-d
     transform: rotate(45deg);
   }
 .btn-checkbox {
-    width: 28px;
-    height: 28px;
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    width: 25px;
+    height: 25px;
     padding: 2px;
     background-color:green;
     border: 0px !important;

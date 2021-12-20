@@ -14,16 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', 'HomeController@dashboard');
 Route::get('/login', 'Auth\LoginController@index');
+Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('/proseslogin', 'Auth\LoginController@login')->name('proseslogin');
+
 Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
-Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::get('/search', 'SearchController@index')->name('findproduk');
 Route::get('defaultProduk/{id}', 'SearchController@defaultproduk');
 Route::get('produk/{id}', 'SearchController@produk');
+
 Route::get('/cart', 'CartController@index');
 Route::post('/add-cart', 'CartController@create')->name('add-cart');
 Route::get('/deletecart/{id}', 'CartController@delete');
 Route::post('/add-dummy', 'CartController@dummy')->name('add-dummy');
 Route::post('/delete-dummy', 'CartController@deletedummy')->name('delete-dummy');
+
+Route::get('/checkout', 'CheckoutController@index');
+Route::get('/kota/{id}','CheckoutController@get_city');
+Route::get('/origin={city_origin}&destination={city_destination}&weight={weight}&courier={courier}','CheckoutController@get_ongkir');
 

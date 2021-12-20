@@ -28,7 +28,6 @@
         @yield('content')
     </div>
     @include("templates.footer")
-    @yield('script')
     <script src="{{ asset('templates/assets/js/libs/jquery-3.1.1.min.js')}}"></script>
     <script src="{{ asset('templates/bootstrap/js/popper.min.js')}}"></script>
     <script src="{{ asset('templates/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -40,17 +39,19 @@
         $(document).ready(function() {
             App.init();
         });
-    </script>
+        </script>
     <script src="{{ asset('templates/plugins/highlight/highlight.pack.js')}}"></script>
     <script src="{{ asset('templates/assets/js/custom.js')}}"></script>
     <script src="{{ asset('templates/assets/js/scrollspyNav.js')}}"></script>
     <script src="{{ asset('templates/plugins/font-icons/feather/feather.min.js')}}"></script>
+    <script src="https://use.fontawesome.com/9a35825826.js"></script>
     <script src="{{ asset('templates/assets/js/components/ui-accordions.js')}}"></script>
     <script src="{{ asset('templates/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
     <script src="{{ asset('templates/plugins/bootstrap-touchspin/custom-bootstrap-touchspin.js')}}"></script>
     <script type="text/javascript">
         feather.replace();
     </script>
+    @yield('script')
 </body>
 
 </html>

@@ -35,7 +35,7 @@
                                     <form action="{{ route('delete-dummy')}}" class="mt-3" method="post">
                                         @csrf
                                         <input type="hidden" value="{{$d->id_barang}}" name="id_barang">
-                                        <button type="submit" class="btn-checkbox"><i data-feather="check"></i></button>
+                                        <button type="submit" class="btn-checkbox"><i class="fa fa-check"></i></button>
                                     </form>
                                     {{-- <label class="containers mt-3"> &nbsp;
                                         <input type="checkbox" id="myCheck" value="{{$d->id_barang}}" onclick="myFunction()" checked />
@@ -52,7 +52,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
 
-                                                    <h4 class="size-16">{{$d->nama_brg}}{{$d->id_barang}}</h4>
+                                                    <h4 class="size-16">{{$d->nama_brg}}</h4>
                                                     <h5 class="semi-bolder size-14 mb-0">Rp.{{ number_format($d->harga) }}</h5>
                                                 </div>
                                             </div>
@@ -92,7 +92,7 @@
                                     </p>
                                     <hr>
                                     <h4 class="nunito bolder">Total Harga  <span style="float: right;">Rp. {{ number_format($sum) }}</span></h4>
-                                    <button class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Beli</button>
+                                    <a href="/checkout" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Beli</a>
                                 </div>
                             </div>
                         </div>
