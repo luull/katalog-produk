@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Cart;
 use App\Http\Controllers\Controller;
 use App\DefaultProduct;
+use App\Dumy;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +42,10 @@ class LoginController extends Controller
     }
     public function logout(Request $request)
     {
+       Cart::where('id_user', session('user-session')->id)->update([
+            'status' => '0'
+        ]);
+       Dumy::where('id_user', session('user-session')->id)->delete();
         $request->session()->flush();
         return redirect('/')->with('message', 'Berhasil logout');
     }

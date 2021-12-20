@@ -24,4 +24,6 @@ Route::get('produk/{id}', 'SearchController@produk');
 Route::get('/cart', 'CartController@index');
 Route::post('/add-cart', 'CartController@create')->name('add-cart');
 Route::get('/deletecart/{id}', 'CartController@delete');
+Route::post('/add-dummy', 'CartController@dummy')->name('add-dummy');
+Route::post('/delete-dummy', 'CartController@deletedummy')->name('delete-dummy');
 
