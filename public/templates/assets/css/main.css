@@ -2008,14 +2008,14 @@ table .badge-success, table .badge-primary, table .badge-warning, table .badge-d
 .badge.counter {
   position: absolute;
   z-index: 2;
-  right: 0;
-  top: -10px;
+  right: -10px;
+  top: -9px;
   font-weight: 600;
-  width: 19px;
-  height: 19px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   padding: 2px 0px;
-  font-size: 12px; }
+  font-size: 10px; }
 
 .badge-chip {
   display: inline-block;

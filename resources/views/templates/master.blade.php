@@ -11,12 +11,14 @@
     <link href="{{ asset('templates/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('templates/assets/css/components/custom-carousel.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('templates/assets/css/components/tabs-accordian/custom-tabs.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('templates/plugins/font-icons/fontawesome/css/regular.css')}}">
-    <link rel="stylesheet" href="{{ asset('templates/plugins/font-icons/fontawesome/css/fontawesome.css')}}">
+    {{-- <link rel="stylesheet" href="{{ asset('templates/plugins/font-icons/fontawesome/css/regular.css')}}">
+    <link rel="stylesheet" href="{{ asset('templates/plugins/font-icons/fontawesome/css/fontawesome.css')}}"> --}}
     <link href="{{ asset('templates/assets/css/components/tabs-accordian/custom-accordions.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('templates/assets/css/elements/breadcrumb.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('templates/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}">
+    <link href="{{ asset('templates/assets/css/elements/infobox.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('templates/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
+
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">

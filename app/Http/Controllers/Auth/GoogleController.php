@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\File;
 use Exception;
 use App\User;
 
@@ -44,11 +45,13 @@ class GoogleController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'google_id'=> $user->id,
-                    'password' => encrypt('123456dummy')
+                    'password' =>  bcrypt('123456dummy')
                 ]);
 
                 Auth::login($newUser);
                 session(['user-session' => $finduser]);
+                File::makeDirectory(public_path('user').'/'.$user->id,0777,true);
+                File::makeDirectory(public_path('user/'.$user->id).'/images' ,0777,true);
                 return redirect('/');
             }
 

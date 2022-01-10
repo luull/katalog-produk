@@ -34,3 +34,9 @@ Route::get('/checkout', 'CheckoutController@index');
 Route::get('/kota/{id}','CheckoutController@get_city');
 Route::get('/origin={city_origin}&destination={city_destination}&weight={weight}&courier={courier}','CheckoutController@get_ongkir');
 
+Route::get('/dashboard', 'UsersController@index');
+Route::post('/updateavatar', 'UsersController@updateavatar')->name('update-avatar');
+Route::post('/addcontact', 'UsersController@addcontact')->name('add-contact');
+
+Route::get('/city/find/{id}', 'HomeController@city_list');
+Route::get('/subdistrict/find/{id}', 'HomeController@subdistrict_list');

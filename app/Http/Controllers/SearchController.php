@@ -11,8 +11,14 @@ class SearchController extends Controller
 {
     public function index(Request $req)
     {
-        $countcart = Cart::where('id_user', session('user-session')->id)->count();
-        session(['countcart' => $countcart]);
+
+        if(session('user-session') != null){
+            $countcart = Cart::where('id_user', session('user-session')->id)->count();
+            session(['countcart' => $countcart]);
+        }else {
+            $countcart = 'kosong';
+            session(['countcart' => $countcart]);
+        }
         $search = $req->search;
         if($search === ''){
             redirect('/');
@@ -24,18 +30,12 @@ class SearchController extends Controller
     }
     public function defaultproduk(Request $req)
     {
-        if (session('user-session') == null) {
-            return redirect('/');
-        }
         $produk_default = DefaultProduct::where('slug', $req->id)->first();
         return view("pages.detilProduk", compact('produk_default'));
 
     }
     public function produk(Request $req)
     {
-        if (session('user-session') == null) {
-            return redirect('/');
-        }
         $produk = Product::where('slug', $req->id)->first();
         return view("pages.detilProduk", compact('produk'));
 

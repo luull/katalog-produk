@@ -74,12 +74,18 @@
 
                                     <hr>
                                     <div class="row mt-4">
-                                        <div class="col-md-6 mb-2">
+                                        <div class="col-md-5 mb-2">
                                             <button class="btn btn-outline-success btn-block">Beli</button>
                                         </div>
-                                        <div class="col-md-6 mb-2">
+                                        @if (session('user-session') != null)
+                                        <div class="col-md-7 mb-2">
                                             <button type="submit" class="btn btn-sm btn-success btn-block"> <i data-feather="plus"></i> Keranjang</button>
                                         </div>
+                                        @else
+                                        <div class="col-md-7 mb-2">
+                                            <a href="/login" class="btn btn-sm btn-success btn-block"> <i data-feather="plus"></i> Keranjang</a>
+                                        </div>
+                                        @endif
                                     </form>
                                 </div>
                             </div>
