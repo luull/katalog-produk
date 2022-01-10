@@ -18,13 +18,18 @@ class UsersController extends Controller
     {
         $data = User::where('id', session('user-session')->id)->first();
         $countcontact = Contact::where('id_user', session('user-session')->id)->first();
+        $contact = Contact::select('contact.*','contact.id as idny', 'city.*','subdistrict.*')
+        ->join('city', 'city.city_id', '=', 'contact.city')
+        ->join('subdistrict', 'subdistrict.subdistrict_id', '=', 'contact.subdistrict')
+        ->where('contact.id_user', '=', $countcontact->id_user)
+        ->orderBy('status', 'DESC')
+        ->get();
         $getuser = User::where('id', $countcontact->id_user)->first();
-        $getcity = City::where('city_id', $countcontact->city)->first();
-        $getsubdistrict = Subdistrict::where('subdistrict_id', $countcontact->subdistrict)->first();
-        $contact = Contact::where('id_user', session('user-session')->id)->get();
+        // $contact = Contact::where('id_user', session('user-session')->id)->get();
         $province = Province::get();
         $city = City::get();
-        return view('users.dashboard', compact('data','contact','province','city', 'countcontact','getuser','getcity','getsubdistrict'));
+        $subdistrict = Subdistrict::get();
+        return view('users.dashboard', compact('data','contact','province','city', 'subdistrict','countcontact','getuser'));
     }
     public function updateavatar(Request $request){
         // $request->validate([
@@ -44,9 +49,9 @@ class UsersController extends Controller
             'photo' => $photo,
         ]);
         if($hsl){
-            return redirect()->back()->with(['message' => 'Data has been updated', 'color' => 'alert-success']);
+            return redirect()->back()->with(['message' => 'Avatar berhasil diubah', 'color' => 'alert-success']);
         }else{
-            return redirect()->back()->with(['message' => 'Data has been updated', 'color' => 'alert-danger']);
+            return redirect()->back()->with(['message' => 'Avatar gagal diubah', 'color' => 'alert-danger']);
 
         }
         } catch (Exception $e) {
@@ -80,15 +85,51 @@ class UsersController extends Controller
             'kd_pos' => $request->kd_pos,
         ]);
         if($hsl){
-            return redirect()->back()->with(['message' => 'Data has been updated', 'color' => 'alert-success']);
+            return redirect()->back()->with(['message' => 'Data berhasil ditambahkan', 'color' => 'alert-success']);
         }else{
-            return redirect()->back()->with(['message' => 'Data has been updated', 'color' => 'alert-danger']);
+            return redirect()->back()->with(['message' => 'Data gagal ditambahkan', 'color' => 'alert-danger']);
 
         }
         } catch (Exception $e) {
             dd($e->getMessage());
         }
 
+    }
+    public function updatestatus(Request $request){
+        try {
+            Contact::where('status', 1)->update([
+                'status' => '0'
+            ]);
+        $hsl = Contact::where('id', $request->id)->update([
+            'status' => '1'
+        ]);
+        if($hsl){
+            return redirect()->back()->with(['message' => 'Alamat berhasil di set', 'color' => 'alert-success']);
+        }else{
+            return redirect()->back()->with(['message' => 'Alamat gagal di set', 'color' => 'alert-danger']);
+
+        }
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+    public function find(Request $req)
+    {
+        $hsl = Contact::find($req->id);
+        if ($hsl) {
+            return response()->json($hsl);
+        } else {
+            return response()->json(['message' => 'Data tidak ditemukan', 'error' => true]);
+        }
+    }
+    public function delete(Request $req)
+    {
+        $hsl = Contact::find($req->id)->delete();
+        if ($hsl) {
+            return redirect()->back()->with(['message' => 'Data berhasil dihapus', 'color' => 'alert-success']);
+        } else {
+            return redirect()->back()->with(['message' => 'Data gagal dihapus', 'color' => 'alert-danger']);
+        }
     }
 
 }

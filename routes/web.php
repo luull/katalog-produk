@@ -37,6 +37,9 @@ Route::get('/origin={city_origin}&destination={city_destination}&weight={weight}
 Route::get('/dashboard', 'UsersController@index');
 Route::post('/updateavatar', 'UsersController@updateavatar')->name('update-avatar');
 Route::post('/addcontact', 'UsersController@addcontact')->name('add-contact');
+Route::get('/deletecontact/{id}', 'UsersController@delete');
+Route::post('/updatestatus', 'UsersController@updatestatus')->name('update-status');
+Route::get('/contact/find/{id}', 'UsersController@find');
 
 Route::get('/city/find/{id}', 'HomeController@city_list');
 Route::get('/subdistrict/find/{id}', 'HomeController@subdistrict_list');

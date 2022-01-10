@@ -101,17 +101,47 @@
                                                     @else
                                                         <button class="btn btn-success mb-3" style="float: right" data-toggle="modal" data-target="#address">Tambah Alamat</button>
                                                         <br>
-                                                        @foreach ($contact as $c)
-                                                        <div class="infobox-3">
-                                                            <div class="info-icon">
-                                                                <i data-feather="map-pin" style="max-height:50px;"></i> <span style="color: #fff;">Utama</span>
+                                                        <br>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                @foreach ($contact as $c)
+                                                                @if($c->status == 1)
+                                                                <div class="infobox-3" style="background-color:#f3fff4bd;border:1px solid green">
+                                                                @else
+                                                                <div class="infobox-3">
+                                                                @endif
+                                                                    @if($c->status == 1)
+                                                                    <div class="info-icon">
+                                                                        <i data-feather="map-pin" style="max-height:50px;"></i> <span style="color: #fff;">Utama</span>
+                                                                    </div>
+                                                                    @endif
+                                                                   <div class="row">
+                                                                       <div class="col-md-10">
+                                                                        <p class="size-16">{{$c->category}}</p>
+                                                                        <p class="size-18">{{$getuser->name}}</p>
+                                                                        <p class="info-text">{{$c->address}}, {{$c->province}}, {{$c->type}} {{$c->city_name}}, {{$c->subdistrict_name}} - {{$c->kd_pos}}</p>
+                                                                        <a class="info-link edit" id="e-{{$c->idny}}"><b>Ubah Alamat</b></a> |  <a class="info-link" href="/deletecontact/{{$c->idny}}"><b>Hapus</b></a>
+                                                                       </div>
+                                                                       @if($c->status != 1)
+                                                                       <div class="col-md-2">
+                                                                           <div class="align-self-center">
+                                                                                <br>
+                                                                                <form action="{{ route('update-status') }}" method="post" enctype="multipart/form-data">
+                                                                                    @csrf
+                                                                                    <input type="text" value="{{$c->idny}}" name="id" hidden>
+                                                                                    <button class="btn btn-success align-self-center">Pilih</button>
+                                                                                </form>
+                                                                           </div>
+
+                                                                       </div>
+                                                                       @endif
+                                                                   </div>
+                                                                </div>
+                                                                @endforeach
                                                             </div>
-                                                            <p class="size-16">{{$c->category}}</p>
-                                                            <p class="size-18">{{$getuser->name}}</p>
-                                                            <p class="info-text">{{$c->address}}, {{$c->province}}, {{$getcity->city_name}}, {{$getsubdistrict->subdistrict_name}}, {{$c->kd_pos}}</p>
-                                                            {{-- <a class="info-link" href="">Discover <svg> ... </svg></a> --}}
+
                                                         </div>
-                                                        @endforeach
                                                     @endif
                                                     </div>
                                     </div>
@@ -228,6 +258,112 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="editaddress" tabindex="-1" role="dialog" aria-labelledby="editaddressLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editaddressLabel">Edit Alamat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <form action="{{ route('add-contact') }}" method="post" enctype="multipart/form-data">
+                @csrf
+            <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label>Kategori Alamat</label>
+                                <br>
+                                <select name="category" id="edit_category" class="form-control" required>
+                                    <option id="edit_category" value="rumah">Rumah</option>
+                                    <option id="edit_category" value="kantor">Kantor</option>
+                                    <option id="edit_category" value="toko">Toko</option>
+                                </select>
+                                <br>
+                                @error('category')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label>Propinsi</label>
+                                <select name="propinsi" id="edit_propinsi" class="edit_propinsi form-control" value="{{ old('propinsi') }}" required>
+                                    @foreach ($province as $prov)
+                                    <option value="{{$prov->province}}">{{$prov->province}}</option>
+                                    @endforeach
+                                </select>
+                                <br>
+                                @error('propinsi')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label>Kota</label>
+                                <select id="edit_kota" name="kota" class="edit_kota form-control" value="{{ old('kota') }}" required>
+
+                                </select>
+                                <br>
+                                @error('kota')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group mb-3">
+                                <label>Kecamatan</label>
+                                <select id="edit_kecamatan" name="kecamatan" class="edit_kecamatan form-control" value="{{ old('kecamatan') }}" required>
+
+                                </select>
+                                <br>
+                                @error('kecamatan')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label>Kode Pos</label>
+                                <input type="text" name="kd_pos" id="edit_kd_pos" class="form-control" value="{{ old('kd_pos') }}" required>
+                                <br>
+                                @error('kd_pos')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label>No Handphone</label>
+                                <input type="text" class="form-control" id="edit_phone" name="phone" max="12" value="{{ old('phone') }}">
+                                <br>
+                                @error('phone')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label>Alamat</label>
+                                <textarea name="alamat" id="edit_alamat" cols="5" rows="4" class="form-control"></textarea>
+                                <br>
+                                @error('alamat')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
@@ -287,5 +423,89 @@
             }
         });
     }
+    $(".edit").click(function(){
+            var idnya=$(this).attr('id').split('-');
+            var id=idnya[1];
+            console.log('test');
+
+            $.ajax({
+                type:'get',
+                method:'get',
+                url:'/contact/find/'  + id ,
+                data:'_token = <?php echo csrf_token() ?>'   ,
+                success:function(hsl) {
+                   if (hsl.error){
+                       alert(hsl.message);
+                   } else{
+                       $("#edit_id").val(id);
+                       $("#edit_category").val(hsl.category);
+                       $(".edit_propinsi").val(hsl.province);
+                       $(".edit_kota").val(hsl.city);
+                       $(".edit_kecamatan").val(hsl.subdistrict);
+                       $("#edit_kd_pos").val(hsl.kd_pos);
+                       $("#edit_phone").val(hsl.phone);
+                       $("textarea#edit_alamat").val(hsl.address);
+                       $("#editaddress").modal();
+                   }
+                }
+            });
+
+        })
+    $(document).ready(function() {
+        $("#edit_propinsi").change(function() {
+            var propinsi = $("#edit_propinsi").val();
+            $.ajax({
+                type: 'get',
+                method: 'get',
+                url: '/city/find/' + propinsi,
+                data: '_token = <?php echo csrf_token() ?>',
+                success: function(hsl) {
+                    if (hsl.code == 404) {
+                        alert(hsl.error);
+
+                    } else {
+                        var data = [];
+                        data = hsl.result;
+                        $("#edit_kota").children().remove().end();
+                        $.each(data, function(i, item) {
+                            $("#edit_kota").append('<option class="edit_kota" value="' + item.city_id + '">' + item.city_name + ' ' + item.type + '</option>');
+                        })
+                        kecamatan2();
+                        $("#edit_kota").focus();
+
+                    }
+                }
+            });
+        })
+        $("#edit_kota").change(function() {
+            kecamatan2();
+        })
+    })
+    function kecamatan2() {
+        var kota = $("#edit_kota").val();
+        $.ajax({
+            type: 'get',
+            method: 'get',
+            url: '/subdistrict/find/' + kota,
+            data: '_token = <?php echo csrf_token() ?>',
+            success: function(hsl) {
+                if (hsl.code == 404) {
+                    alert(hsl.error);
+
+                } else {
+                    var data = [];
+                    data = hsl.result;
+                    console.log(hsl.result)
+                    $("#edit_kecamatan").children().remove().end();
+                    $.each(data, function(i, item) {
+                        $("#edit_kecamatan").append('<option class="edit_kecamatan" value="' + item.subdistrict_id + '">' + item.subdistrict_name + '</option>');
+                    })
+                    $("#edit_kecamatan").focus();
+
+                }
+            }
+        });
+    }
+
     </script>
 @stop
