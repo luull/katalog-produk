@@ -43,3 +43,17 @@ Route::get('/contact/find/{id}', 'UsersController@find');
 
 Route::get('/city/find/{id}', 'HomeController@city_list');
 Route::get('/subdistrict/find/{id}', 'HomeController@subdistrict_list');
+
+
+
+Route::get('/login/backend', 'Backend\LoginController@index');
+Route::post('/prosesloginbackend', 'Backend\LoginController@login')->name('prosesloginbackend');
+Route::get('/logoutbackend', 'Backend\LoginController@logout');
+Route::get('/backend/dashboard', 'Backend\DashboardController@index');
+
+Route::get('/banner', 'Backend\BannerController@index');
+Route::post('/backend/createbanner', 'Backend\BannerController@create')->name('create-banner');
+Route::get('/backend/banner/delete/{id}', 'Backend\BannerController@delete')->name('delete-banner');
+Route::get('/backend/banner/find/{id}', 'Backend\BannerController@find');
+Route::post('/backend/updatebanner', 'Backend\BannerController@update')->name('update-banner');
+

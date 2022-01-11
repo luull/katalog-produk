@@ -24,9 +24,7 @@ class SearchController extends Controller
             redirect('/');
         }
         $produk_default = DefaultProduct::where('nama_brg', 'LIKE', '%' . $search . '%')->get();
-        $produk = Product::where('nama_brg', 'LIKE', '%' . $search . '%')->get();
-
-        return view("pages.search", compact('produk_default','produk','search'));
+        return view("pages.search", compact('produk_default','search'));
     }
     public function defaultproduk(Request $req)
     {
