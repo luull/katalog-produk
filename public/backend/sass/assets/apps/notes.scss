@@ -37,14 +37,14 @@
 .group-section {
   font-weight: 600;
   font-size: 15px;
-  color: #3b3f5c;
+  color: $dark;
   letter-spacing: 1px;
   margin-top: 25px;
   margin-bottom: 13px;
   padding: 9px 20px;
 
   svg {
-    color: #888ea8;
+    color: $m-color_6;
     margin-right: 6px;
     vertical-align: text-top;
     width: 20px;
@@ -58,7 +58,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #3b3f5c !important;
+  background: $dark !important;
   z-index: 4 !important;
   opacity: 0;
   transition: all 0.5s ease-in-out;
@@ -82,7 +82,7 @@
   }
 
   hr {
-    border-top: 1px solid #0e1726;
+    border-top: 1px solid $m-color_10;
     max-width: 54px;
     margin-top: 25px;
     margin-bottom: 25px;
@@ -90,15 +90,15 @@
 
   .nav-pills {
     .nav-link.active, .show > .nav-link {
-      background-color: rgb(198, 211, 253);
-      color: #3b3f5c;
+      background-color: $l-success;
+      color: $dark;
       font-weight: 600;
     }
 
     a.nav-link {
       position: relative;
       font-weight: 600;
-      color: #515365;
+      color: $m-color_9;
       padding: 9px 20px;
       cursor: pointer;
       font-size: 14px;
@@ -112,14 +112,14 @@
       }
 
       .mail-badge {
-        background: #eaf1ff;
+        background: $l-primary;
         border-radius: 50%;
         position: absolute;
         right: 8px;
         padding: 4px 7px;
         height: 24px;
         width: 23px;
-        color: #4361ee;
+        color: $primary;
         font-weight: 600;
       }
     }
@@ -129,7 +129,7 @@
       font-size: 14px;
       font-weight: 600;
       padding: 9px 15px 9px 50px;
-      color: #3b3f5c;
+      color: $dark;
       letter-spacing: 1px;
 
       &[class*="g-dot-"]:before {
@@ -139,27 +139,27 @@
         border-radius: 50%;
         top: 14px;
         left: 20px;
-        border: 2px solid #515365;
+        border: 2px solid $m-color_9;
       }
 
       &.g-dot-danger:before {
-        background: #fff5f5;
-        border: 1px solid #e7515a;
+        background: $l-danger;
+        border: 1px solid $danger;
       }
 
       &.g-dot-primary:before {
-        background: #e7f7ff;
-        border: 1px solid #2196f3;
+        background: $l-info;
+        border: 1px solid $info;
       }
 
       &.g-dot-warning:before {
-        background: #fff9ed;
-        border: 1px solid #e2a03f;
+        background: $l-warning;
+        border: 1px solid $warning;
       }
 
       &.g-dot-success:before {
-        background: #f3effc;
-        border: 1px solid #805dca;
+        background: $l-secondary;
+        border: 1px solid $secondary;
       }
     }
 
@@ -178,7 +178,7 @@
 
       &:hover {
         background-color: #fff;
-        color: #4361ee;
+        color: $primary;
       }
     }
 
@@ -211,7 +211,7 @@
     margin-bottom: 43px;
 
     .active-view {
-      color: #4361ee;
+      color: $primary;
       fill: rgba(27, 85, 226, 0.2392156863);
     }
 
@@ -220,7 +220,7 @@
       background: #fff;
       border-radius: 5px;
       cursor: pointer;
-      color: #515365;
+      color: $m-color_9;
       box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
       width: 43px;
       height: 41px;
@@ -246,28 +246,28 @@
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     border-bottom: 3px solid #4461ed;
-    background: #eaf1ff;
+    background: $l-primary;
   }
 
   &.note-work .note-inner-content {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    border-bottom: 3px solid #e2a03f;
-    background: #fff9ed;
+    border-bottom: 3px solid $warning;
+    background: $l-warning;
   }
 
   &.note-important .note-inner-content {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    border-bottom: 3px solid #e7515a;
-    background: #fff5f5;
+    border-bottom: 3px solid $danger;
+    background: $l-danger;
   }
 
   &.note-social .note-inner-content {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    border-bottom: 3px solid #805dca;
-    background: #f3effc;
+    border-bottom: 3px solid $secondary;
+    background: $l-secondary;
   }
 
   .note-inner-content {
@@ -279,17 +279,17 @@
     margin-bottom: 18px;
     border-radius: 6px;
     background: #ffffff;
-    border: 1px solid #ebedf2;
+    border: 1px solid $m-color_2;
     box-shadow: 18px 20px 10.3px -23px rgba(0, 0, 0, 0.15);
     width: 100%;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    border-bottom: 3px solid #888ea8;
+    border-bottom: 3px solid $m-color_6;
 
     .note-title {
       font-size: 16px;
       font-weight: 600;
-      color: #3b3f5c;
+      color: $dark;
       margin-bottom: 0px;
       letter-spacing: 0px;
     }
@@ -298,7 +298,7 @@
       font-weight: 600;
       margin-bottom: 10px;
       font-size: 14px;
-      color: rgb(119, 135, 204);
+      color: $m-color_9;
       display: inline-block;
       border-radius: 4px;
     }
@@ -309,7 +309,7 @@
       margin-bottom: 0;
       letter-spacing: 0px;
       word-wrap: break-word;
-      color: #515365;
+      color: $m-color_6;
     }
 
     .note-action {
@@ -319,27 +319,27 @@
         padding: 4px;
         border-radius: 5px;
         cursor: pointer;
-        color: #607d8b;
+        color: $m-color_11;
         width: 28px;
         height: 28px;
-        fill: #f1f2f3;
+        fill: $m-color_1;
         stroke-width: 1.6;
       }
     }
   }
 
   &.note-fav .note-inner-content .note-action .fav-note {
-    fill: #ffbb44;
+    fill: $m-color_15;
   }
 
   .note-inner-content {
     .note-action {
       .fav-note:hover {
-        fill: #e2a03f;
+        fill: $warning;
       }
 
       .delete-note:hover {
-        color: #e7515a;
+        color: $danger;
       }
     }
 
@@ -357,7 +357,7 @@
           content: '';
           background: transparent;
           border-radius: 50%;
-          border: 2px solid #e3e4eb;
+          border: 2px solid $l-dark;
           display: inline-block;
           height: 11px;
           width: 11px;
@@ -366,23 +366,23 @@
         }
 
         .g-dot-personal {
-          background: #e7f7ff;
-          border: 2px solid #2196f3;
+          background: $l-info;
+          border: 2px solid $info;
         }
 
         .g-dot-work {
-          background: #fff9ed;
-          border: 2px solid #e2a03f;
+          background: $l-warning;
+          border: 2px solid $warning;
         }
 
         .g-dot-social {
-          background: #f3effc;
-          border: 2px solid #805dca;
+          background: $l-secondary;
+          border: 2px solid $secondary;
         }
 
         .g-dot-important {
-          background: #fff5f5;
-          border: 2px solid #e7515a;
+          background: $l-danger;
+          border: 2px solid $danger;
         }
       }
     }
@@ -404,7 +404,7 @@
           padding: 3px 35px;
           font-weight: 600;
           letter-spacing: 0px;
-          color: #3b3f5c;
+          color: $dark;
         }
 
         .dropdown-item {
@@ -420,28 +420,28 @@
           border-radius: 50%;
           top: 9px;
           left: 10px;
-          border: 2px solid #515365;
+          border: 2px solid $m-color_9;
         }
 
         a {
           &.g-dot-important:before {
-            background: #fff5f5;
-            border: 1px solid #e7515a;
+            background: $l-danger;
+            border: 1px solid $danger;
           }
 
           &.g-dot-personal:before {
-            background: #e7f7ff;
-            border: 1px solid #2196f3;
+            background: $l-info;
+            border: 1px solid $info;
           }
 
           &.g-dot-work:before {
-            background: #fff9ed;
-            border: 1px solid #e2a03f;
+            background: $l-warning;
+            border: 1px solid $warning;
           }
 
           &.g-dot-social:before {
-            background: #f3effc;
-            border: 1px solid #805dca;
+            background: $l-secondary;
+            border: 1px solid $secondary;
           }
         }
       }
@@ -457,12 +457,12 @@
       .feather-more-vertical {
         border-radius: 5px;
         cursor: pointer;
-        color: #515365;
+        color: $m-color_9;
         width: 20px;
         height: 20px;
 
         &:hover {
-          color: #0e1726;
+          color: $m-color_10;
         }
       }
     }
@@ -490,7 +490,7 @@
 
     [data-dismiss="modal"] {
       background-color: #fff;
-      color: #4361ee;
+      color: $primary;
       font-weight: 700;
       border: 1px solid #e8e8e8;
       padding: 10px 25px;
@@ -503,10 +503,10 @@
     }
 
     #btn-n-add {
-      background-color: #4361ee;
+      background-color: $primary;
       color: #fff;
       font-weight: 600;
-      border: 1px solid #4361ee;
+      border: 1px solid $primary;
       padding: 10px 25px;
     }
 
@@ -518,7 +518,7 @@
 }
 
 .modal-backdrop {
-  background-color: #ebedf2;
+  background-color: $m-color_2;
 }
 
 .modal-content svg.close {
@@ -534,7 +534,7 @@
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: .600s;
-  color: #3b3f5c;
+  color: $dark;
 }
 
 .notes-box .notes-content form {
@@ -628,7 +628,7 @@
     color: #fff;
     align-self: center;
     display: inline-block;
-    background-color: #515365;
+    background-color: $m-color_9;
     border-radius: 50%;
   }
 }

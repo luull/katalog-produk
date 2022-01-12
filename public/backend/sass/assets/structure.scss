@@ -16,11 +16,11 @@ body {
   color: #888ea8;
   height: 100%;
   font-size: 0.875rem;
-  background: #f1f2f3;
+  background: #fafafa;
   overflow-x: hidden;
   overflow-y: auto;
   letter-spacing: 0.0312rem;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -64,38 +64,13 @@ code {
 
 /*Page title*/
 
-.page-header {
-  border: 0;
-  margin: 0;
-
-  &:before {
-    display: table;
-    content: "";
-    line-height: 0;
+.navbar {
+  .navbar-item .nav-item.page-heading {
+    margin-left: 20px;
   }
 
-  &:after {
-    display: table;
-    content: "";
-    line-height: 0;
-    clear: both;
-  }
-}
-
-.page-title {
-  h3 {
-    margin: 0;
-    margin-bottom: 0;
-    font-size: 15px;
-    color: #3b3f5c;
-    font-weight: 700;
-  }
-
-  span {
-    display: block;
-    font-size: 11px;
-    color: #888;
-    font-weight: normal;
+  &.expand-header .navbar-item .nav-item.page-heading {
+    margin-left: 25px;
   }
 }
 
@@ -113,7 +88,6 @@ code {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  padding: 0 0 0 16px;
 }
 
 #container.fixed-header {
@@ -121,13 +95,13 @@ code {
 }
 
 #content {
-  position: relative;
   width: 50%;
   flex-grow: 8;
-  margin-top: 106px;
+  margin-top: 80px;
   margin-bottom: 0;
-  margin-left: 212px;
-  transition: .600s;
+  margin-left: 255px;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
 }
 
 .main-container-fluid > .main-content > .container {
@@ -161,12 +135,8 @@ code {
 }
 
 .layout-px-spacing {
-  padding: 0 20px 0 18px !important;
-  min-height: calc(100vh - 170px) !important;
-}
-
-.sidebar-closed .layout-px-spacing {
-  padding: 0 16px !important;
+  padding: 0 20px 0 20px !important;
+  min-height: calc(100vh - 140px) !important;
 }
 
 .widget.box .widget-header {
@@ -234,8 +204,6 @@ code {
   margin-left: 80px;
 }
 
-
-
 //  ===============================
 //	     _structure Imports 
 //  ===============================
@@ -251,7 +219,7 @@ code {
 */
 
 .footer-wrapper {
-  padding: 10px 20px 10px 18px;
+  padding: 10px 20px 10px 20px;
   display: inline-block;
   background: transparent;
   font-weight: 600;

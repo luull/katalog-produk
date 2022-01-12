@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 10, 2022 at 05:31 PM
+-- Generation Time: Jan 12, 2022 at 06:02 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -24,6 +24,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(500) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`, `date_created`) VALUES
+(1, 'backend', '$2y$10$O6skXSE.zEZr8S9AUMqSVeseryQdRNgeF4OAn896UuRBHPJtQCh/u', '2022-01-11 13:33:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banner`
+--
+
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `banner`
+--
+
+INSERT INTO `banner` (`id`, `image`, `date_created`, `created_by`) VALUES
+(1, 'backend/banner/1641907446.png', '2022-01-11 20:24:07', 'backend');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cart`
 --
 
@@ -40,14 +80,28 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `id_user`, `id_barang`, `qty`, `status`) VALUES
-(10, 3, 20, 14, 0),
-(14, 3, 55, 4, 0),
-(15, 3, 69, 3, 0),
-(18, 3, 65, 3, 0),
-(21, 3, 5, 4, 0),
-(22, 4, 61, 3, 0),
-(23, 4, 63, 3, 0),
-(24, 9, 6, 2, 0);
+(31, 21, 8, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `date_created`, `created_by`) VALUES
+(1, 'admin', '2022-01-12 10:34:09', 'backend'),
+(2, 'anak anak', '2022-01-12 10:34:29', 'backend');
 
 -- --------------------------------------------------------
 
@@ -587,16 +641,17 @@ CREATE TABLE `contact` (
   `address` text DEFAULT NULL,
   `kd_pos` int(100) DEFAULT NULL,
   `phone` varchar(13) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL
+  `status` int(11) DEFAULT NULL,
+  `pick` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `contact`
 --
 
-INSERT INTO `contact` (`id`, `id_user`, `category`, `province`, `city`, `subdistrict`, `address`, `kd_pos`, `phone`, `status`) VALUES
-(5, 20, 'rumah', 'Jawa Barat', '54', 740, 'Perum Kota Serang Baru Blok E 22 No 5', 1232, '62812312312', 1),
-(7, 20, 'rumah', 'DKI Jakarta', '153', 2104, 'Jagakarsa', 123, '62812731273', 0);
+INSERT INTO `contact` (`id`, `id_user`, `category`, `province`, `city`, `subdistrict`, `address`, `kd_pos`, `phone`, `status`, `pick`) VALUES
+(8, 21, 'kantor', 'DKI Jakarta', '153', 2105, 'sdfafaqwdfwdasd', 1232, '62812731273', 0, 0),
+(9, 21, 'rumah', 'Jawa Barat', '54', 740, 'ZSJHDFJKASJKNASD', 1232, '62812731273', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -706,7 +761,8 @@ INSERT INTO `display` (`id`, `produk_id`) VALUES
 (7, 5),
 (9, 62),
 (10, 61),
-(11, 32);
+(11, 32),
+(13, 2);
 
 -- --------------------------------------------------------
 
@@ -721,6 +777,40 @@ CREATE TABLE `dummy` (
   `qty` int(11) NOT NULL,
   `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dummy`
+--
+
+INSERT INTO `dummy` (`id`, `id_user`, `id_barang`, `qty`, `total`) VALUES
+(166, 21, 8, 1, 149000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `berat` varchar(255) NOT NULL,
+  `harga` varchar(500) NOT NULL,
+  `keterangan_singkat` text NOT NULL,
+  `keterangan` text NOT NULL,
+  `kategori` text NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `berat`, `harga`, `keterangan_singkat`, `keterangan`, `kategori`, `image`, `date_created`, `created_by`) VALUES
+(1, 'baju anak', '27.90', '120.000', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it edit', '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it edit</p>', '1', 'backend/product/1641957361.png', '2022-01-12 10:12:46', 'backend'),
+(2, 'test', '25.90', '149000', 'asdasd', '<p>asdasdasdasdasd</p>', '2', 'backend/product/1641958639.jpg', '2022-01-12 10:37:19', 'backend');
 
 -- --------------------------------------------------------
 
@@ -8082,16 +8172,34 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `photo`, `google_id`, `remember_token`, `created_at`, `updated_at`) VALUES
 (4, 'admin', 'admin@gmail.com', NULL, '$2y$10$O6skXSE.zEZr8S9AUMqSVeseryQdRNgeF4OAn896UuRBHPJtQCh/u', NULL, NULL, NULL, NULL, NULL),
-(20, 'Luul 14', 'm.fadlullah14@gmail.com', NULL, '$2y$10$cJBjziaAWgxdXSbrb0UMWuOvUQtmJmDzFhZlC3gcAd88yTLJCf0Uu', '114571505968709729134/images/1641796956.png', '114571505968709729134', NULL, '2022-01-09 23:40:14', '2022-01-09 23:40:14');
+(21, 'Luul 14', 'm.fadlullah14@gmail.com', NULL, '$2y$10$md9XfGK8b8uW2HQnualSOeoYvxJcQ55Vz5aQAYxtf1ii7wAAuYe5.', NULL, '114571505968709729134', NULL, '2022-01-10 22:47:06', '2022-01-10 22:47:06');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `banner`
+--
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -8132,6 +8240,12 @@ ALTER TABLE `dummy`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `province`
 --
 ALTER TABLE `province`
@@ -8161,10 +8275,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `banner`
+--
+ALTER TABLE `banner`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `city`
@@ -8176,7 +8308,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `default_produk`
@@ -8188,13 +8320,19 @@ ALTER TABLE `default_produk`
 -- AUTO_INCREMENT for table `display`
 --
 ALTER TABLE `display`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `dummy`
 --
 ALTER TABLE `dummy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `province`
@@ -8212,7 +8350,7 @@ ALTER TABLE `subdistrict`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables

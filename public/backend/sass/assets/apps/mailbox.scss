@@ -128,7 +128,7 @@
   -webkit-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
   -moz-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
   box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
-  height: calc(100vh - 179px);
+  height: calc(100vh - 150px);
   margin-bottom: 10px;
 
   .avatar-sm {
@@ -183,7 +183,7 @@
 
   #btn-compose-mail {
     transform: none;
-    background: #3b3f5c;
+    background: #506690;
     border: none !important;
     padding: 7px 9px;
     font-size: 14px;
@@ -557,7 +557,7 @@
       margin: auto;
       width: 100%;
       overflow: auto;
-      height: calc(100vh - 284px);
+      height: calc(100vh - 255px);
     }
   }
 
@@ -565,12 +565,12 @@
     &[id*="unread-"] div.mail-item-heading .mail-item-inner {
       .f-body {
         .mail-title {
-          font-weight: 600;
+          font-weight: 700;
           color: #1b2e4b;
         }
 
         .user-email {
-          font-weight: 600;
+          font-weight: 700;
           color: #0e1726;
         }
       }
@@ -789,7 +789,7 @@
 .mailbox-inbox {
   .collapse {
     position: relative;
-    height: calc(100vh - 234px);
+    height: calc(100vh - 203px);
   }
 
   .mail-content-container {

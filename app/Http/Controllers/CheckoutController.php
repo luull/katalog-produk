@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\City;
+use App\Contact;
 use App\DefaultProduct;
 use App\Dumy;
+use App\Province;
+use App\Subdistrict;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,10 +16,27 @@ class CheckoutController extends Controller
 {
     public function index()
     {
+        $getcontact = Contact::select('contact.*','contact.id as ctid', 'city.*','subdistrict.*','users.name')
+        ->join('users', 'users.id', '=', 'contact.id_user')
+        ->join('city', 'city.city_id', '=', 'contact.city')
+        ->join('subdistrict', 'subdistrict.subdistrict_id', '=', 'contact.subdistrict')
+        ->where('contact.id_user', '=', session('user-session')->id)
+        ->orderBy('contact.status', 'DESC')
+        ->get();
+        $getaddress = Contact::select('contact.*','contact.id as ctid', 'city.*','subdistrict.*','users.name')
+        ->join('users', 'users.id', '=', 'contact.id_user')
+        ->join('city', 'city.city_id', '=', 'contact.city')
+        ->join('subdistrict', 'subdistrict.subdistrict_id', '=', 'contact.subdistrict')
+        ->where('contact.id_user', '=', session('user-session')->id)
+        ->where('contact.pick', '=', 1)
+        ->first();
+        // $getaddress = Contact::where('pick', 1)->first();
+        // $getcontact = Contact::where('id_user', '=' ,session('user-session')->id)->where('status', '=', 1)->get();
+        // $city = City::where('city_id', $getcontact->city)->get();
         $countbuy = Dumy::where('id_user', session('user-session')->id)->count();
         $sum = Dumy::where('id_user', session('user-session')->id)->sum('total');
         $provinsi = $this->get_province();
-        return view("pages.checkout", compact('countbuy','sum','provinsi'));
+        return view("pages.checkout", compact('countbuy','sum','provinsi','getcontact','getaddress'));
     }
     public function get_province(){
         $curl = curl_init();
@@ -102,6 +123,22 @@ class CheckoutController extends Controller
             $response=json_decode($response,true);
             $data_ongkir = $response['rajaongkir']['results'];
             return json_encode($data_ongkir);
+        }
+    }
+    public function changepick(Request $request)
+    {
+        // dd($request->nama_kota);
+        Contact::where('pick', 1)->update([
+            'pick' => '0'
+        ]);
+        $hsl = Contact::where('id', $request->nama_kota)->update([
+            'pick' => '1'
+        ]);
+        if($hsl){
+            return redirect()->back()->with(['message' => 'Alamat berhasil diubah', 'color' => 'alert-success']);
+        }else{
+            return redirect()->back()->with(['message' => 'Alamat gagal diubah', 'color' => 'alert-danger']);
+
         }
     }
 }

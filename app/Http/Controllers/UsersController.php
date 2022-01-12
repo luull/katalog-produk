@@ -18,13 +18,14 @@ class UsersController extends Controller
     {
         $data = User::where('id', session('user-session')->id)->first();
         $countcontact = Contact::where('id_user', session('user-session')->id)->first();
+        // dd(session('user-session')->id);
         $contact = Contact::select('contact.*','contact.id as idny', 'city.*','subdistrict.*')
         ->join('city', 'city.city_id', '=', 'contact.city')
         ->join('subdistrict', 'subdistrict.subdistrict_id', '=', 'contact.subdistrict')
-        ->where('contact.id_user', '=', $countcontact->id_user)
+        ->where('contact.id_user', '=', session('user-session')->id)
         ->orderBy('status', 'DESC')
         ->get();
-        $getuser = User::where('id', $countcontact->id_user)->first();
+        $getuser = User::where('id', session('user-session')->id)->first();
         // $contact = Contact::where('id_user', session('user-session')->id)->get();
         $province = Province::get();
         $city = City::get();
@@ -97,11 +98,13 @@ class UsersController extends Controller
     }
     public function updatestatus(Request $request){
         try {
-            Contact::where('status', 1)->update([
-                'status' => '0'
+            Contact::where('status','=', 1)->where('pick','=',1)->update([
+                'status' => '0',
+                'pick' => '0',
             ]);
         $hsl = Contact::where('id', $request->id)->update([
-            'status' => '1'
+            'status' => '1',
+            'pick' => '1',
         ]);
         if($hsl){
             return redirect()->back()->with(['message' => 'Alamat berhasil di set', 'color' => 'alert-success']);

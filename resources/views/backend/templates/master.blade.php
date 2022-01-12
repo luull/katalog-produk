@@ -23,6 +23,7 @@
     <link href="{{ asset('backend/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/table/datatable/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/table/datatable/dt-global_style.css')}}">
+
 </head>
 <body class="dashboard-analytics">
     <div id="load_screen"> <div class="loader"> <div class="loader-content">

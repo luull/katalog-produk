@@ -14,11 +14,14 @@
                         </div>
                     </div>
                         <div class="col-lg-8 mt-4">
-                            <h3 class="nunito bolder">Checkout</h3>
+                            <h3 class="nunito bolder mb-3">Checkout</h3>
+                            <p class="nunito bolder black size-16">Alamat Pengiriman</p>
                             <hr>
-                            <p><b>{{ session('user-session')->name}}</b></p>
-                            <form class="ps-checkout__form" action="" method="post">
-                            @csrf
+                            <p class="size-12"><b>{{ $getaddress->name}}</b> ({{ $getaddress->category}})</p>
+                            <p class="size-12 mb-0">{{ $getaddress->phone}}</p>
+                            <p class="text-muted size-12">{{ $getaddress->address}}, {{$getaddress->city_name}}, {{$getaddress->subdistrict_name }}, {{$getaddress->province }}, {{$getaddress->kd_pos }}</p>
+                            <hr>
+                            <button class="btn btn-default" data-toggle="modal" data-target="#editAddress">Ubah alamat</button>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group ">
@@ -27,28 +30,8 @@
                                         <div class="form-group ">
                                             <input type="hidden" value="153" class="form-control" id="city_origin" name="city_origin">
                                         </div>
-
-                                        <div class="form-group form-group--inline">
-                                                <label for="provinsi">Provinsi</label>
-                                                <select name="province_id" id="province_id" class="form-control">
-                                                    <option value="">Provinsi</option>
-                                                    @foreach ($provinsi  as $row)
-                                                        <option value="{{$row['province_id']}}" namaprovinsi="{{$row['province']}}">{{$row['province']}}</option>
-                                                    @endforeach
-                                                </select>
-                                        </div>
                                         <div class="form-group">
-                                            <input type="hidden" class="form-control" id="nama_provinsi" nama="nama_provinsi" placeholder="ini untuk menangkap nama provinsi ">
-                                        </div>
-                                        <div class="form-group ">
-                                            <label>Kota<span>*</span>
-                                            </label>
-                                            <select name="kota_id" id="kota_id" class="form-control">
-                                                <option value="">Pilih Kota</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" id="nama_kota" name="nama_kota" placeholder="ini untuk menangkap nama kota">
+                                            <input type="hidden" class="form-control" value="{{ $getaddress->city}}" name="get_kota" placeholder="ini untuk menangkap nama kota">
                                         </div>
                                         <div class="form-group ">
                                             <label>Pilih Ekspedisi<span>*</span>
@@ -73,16 +56,7 @@
 
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group ">
-                                            <label>Alamat<span>*</span>
-                                            </label>
-                                            <textarea name="address" class="form-control" rows="5" placeholder="Alamat Lengkap pengiriman" ></textarea>
-                                        </div>
-                                        <div class="form-group ">
-                                            <label>Kode Pos<span>*</span>
-                                            </label>
-                                            <input type="text" name="kode_pos" class="form-control" >
-                                        </div>
+
                                         <div class="form-group ">
                                             {{-- <label>total berat (gram) </label> --}}
                                             <input class="form-control" type="hidden" value="200" id="weight" name="weight">
@@ -100,12 +74,8 @@
                                             {{-- <label>total keseluruhan </label> --}}
                                             <input class="form-control" type="hidden" id="total" name="total">
                                         </div>
-                                        {{-- <div class="form-group">
-                                            <button class="btn btn-primary" type="submit">Proses Order</button>
-                                        </div> --}}
                                     </div>
                                 </div>
-                            </form>
                         </div>
                         <div class="col-md-4">
                             <form id="myForm" action="{{ route('add-dummy')}}" method="post">
@@ -132,6 +102,44 @@
                         </div>
             </div>
 </div>
+<!-- Modal edit-->
+<div class="modal fade" id="editAddress" tabindex="-1" role="dialog" aria-labelledby="editAddressLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAddressLabel">Ubah Alamat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <i data-feather="close"></i>
+                </button>
+            </div>
+           <div class="modal-body">
+            <form action="{{ route('change-pick') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                    <div class="form-group ">
+                        <label>Pilih Alamat<span>*</span>
+                        </label>
+                        <select name="nama_kota" id="nama_kota" value="{{ old('nama_kota') }}" class="selectpicker" required>
+                            @foreach ($getcontact as $g )
+                                @if($g->status == 1)
+                                <optgroup label="{{$g->name}} ({{$g->category}}) UTAMA">
+                                @else
+                                <optgroup label="{{$g->name}} ({{$g->category}})">
+                                @endif
+                                    <option namakota="{{$g->city}}" value="{{$g->ctid}}" data-subtext="{{$g->city_name}}, {{$g->subdistrict_name}}, {{$g->province}}, {{$g->kd_pos}}">{{$g->address}}</option>
+                                </optgroup>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+           </div>
+
+        </div>
+    </div>
+</div>
 @stop
 @section('script')
 <script src="https://code.jquery.com/jquery-3.4.1.js"
@@ -139,35 +147,35 @@ integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 crossorigin="anonymous"></script>
 <script>
     $(document).ready(function(){
-        $('select[name="province_id"]').on('change', function(){
-            var namaprovinsiku = $("#province_id option:selected").attr("namaprovinsi");
-            $("#nama_provinsi").val(namaprovinsiku);
-            let provinceid = $(this).val();
-                console.log('prop',provinceid);
-            if(provinceid){
-                $.ajax({
-                    type:'get',
-                    method: 'get',
-                    url:"/kota/"+ provinceid,
-                    dataType:'json',
-                    success:function(data){
-                    $('select[name="kota_id"]').empty();
-                        $.each(data, function(key, value){
-                            $('select[name="kota_id"]').append('<option value="'+ value.city_id +'" namakota="'+ value.type +' ' +value.city_name+ '">' + value.type + ' ' + value.city_name + '</option>');
-                        });
-                    }
-                });
-                }else {
-                    $('select[name="kota_id"]').empty();
-                }
-        });
-        $('select[name="kota_id"]').on('change', function(){
-            var namakotaku = $("#kota_id option:selected").attr("namakota");
-            $("#nama_kota").val(namakotaku);
+        // $('select[name="province_id"]').on('change', function(){
+        //     var namaprovinsiku = $("#province_id option:selected").attr("namaprovinsi");
+        //     $("#nama_provinsi").val(namaprovinsiku);
+        //     let provinceid = $(this).val();
+        //         console.log('prop',provinceid);
+        //     if(provinceid){
+        //         $.ajax({
+        //             type:'get',
+        //             method: 'get',
+        //             url:"/kota/"+ provinceid,
+        //             dataType:'json',
+        //             success:function(data){
+        //             $('select[name="kota_id"]').empty();
+        //                 $.each(data, function(key, value){
+        //                     $('select[name="kota_id"]').append('<option value="'+ value.city_id +'" namakota="'+ value.type +' ' +value.city_name+ '">' + value.type + ' ' + value.city_name + '</option>');
+        //                 });
+        //             }
+        //         });
+        //         }else {
+        //             $('select[name="kota_id"]').empty();
+        //         }
+        // });
+        $('select[name="nama_kota"]').on('change', function(){
+            var namakotaku = $("#nama_kota option:selected").attr("namakota");
+            $("#get_kota").val(namakotaku);
         });
         $('select[name="kurir"]').on('change', function(){
             let origin = $("input[name=city_origin]").val();
-            let destination = $("select[name=kota_id]").val();
+            let destination = $("input[name=get_kota]").val();
             let courier = $("select[name=kurir]").val();
             let weight = $("input[name=weight]").val();
                 if(courier){
@@ -180,7 +188,16 @@ crossorigin="anonymous"></script>
                         $.each(data, function(key, value){
                             $.each(value.costs, function(key1, value1){
                                 $.each(value1.cost, function(key2, value2){
-                                    $('select[name="layanan"]').append('<option value="'+ key +'" harga_ongkir="'+value2.value+'">' + value1.service + '-' +value2.value+ '</option>');
+                                    var	number_string = value2.value.toString(),
+                                        sisa 	= number_string.length % 3,
+                                        hasil 	= number_string.substr(0, sisa),
+                                        ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+
+                                    if (ribuan) {
+                                        separator = sisa ? '.' : '';
+                                        hasil += separator + ribuan.join('.');
+                                    }
+                                    $('select[name="layanan"]').append('<option value="'+ key +'" harga_ongkir="'+value2.value+'">' + value1.service + '-' +hasil+ '</option>');
                                 });
                             });
                         });

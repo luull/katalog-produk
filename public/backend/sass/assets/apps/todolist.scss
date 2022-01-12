@@ -108,8 +108,8 @@
   border-right: 1px solid #e0e6ed;
 
   svg.feather-clipboard {
-    color: #4361ee;
-    fill: rgba(27, 85, 226, 0.2392156863);
+    color: #506690;
+    fill: rgba(80, 102, 144, 0.239);
     margin-bottom: 13px;
   }
 
@@ -129,7 +129,7 @@
     color: #fff;
     bottom: 32px;
     left: 17%;
-    background-color: #4361ee;
+    background-color: #506690;
 
     svg {
       margin-right: 5px;
@@ -290,7 +290,7 @@
   margin: auto;
   width: 100%;
   overflow: auto;
-  height: calc(100vh - 224px);
+  height: calc(100vh - 195px);
 }
 
 .todo-inbox .todo-item {
@@ -323,7 +323,7 @@
 
     .todo-heading {
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 700;
       color: #515365;
       margin-bottom: 2px;
       -webkit-transition: all 0.35s ease;
@@ -583,7 +583,6 @@
     margin-right: 8px;
     width: 19px;
     height: 19px;
-    vertical-align: sub;
   }
 }
 

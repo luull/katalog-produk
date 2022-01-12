@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('templates/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}">
     <link href="{{ asset('templates/assets/css/elements/infobox.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('templates/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('templates/plugins/bootstrap-select/bootstrap-select.min.css')}}">
 
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -51,6 +52,7 @@
     <script src="{{ asset('templates/assets/js/components/ui-accordions.js')}}"></script>
     <script src="{{ asset('templates/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
     <script src="{{ asset('templates/plugins/bootstrap-touchspin/custom-bootstrap-touchspin.js')}}"></script>
+    <script src="{{ asset('templates/plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
     <script type="text/javascript">
         feather.replace();
     </script>
