@@ -35,8 +35,9 @@ class CheckoutController extends Controller
         // $city = City::where('city_id', $getcontact->city)->get();
         $countbuy = Dumy::where('id_user', session('user-session')->id)->count();
         $sum = Dumy::where('id_user', session('user-session')->id)->sum('total');
+        $berat = Dumy::where('id_user', session('user-session')->id)->sum('berat');
         $provinsi = $this->get_province();
-        return view("pages.checkout", compact('countbuy','sum','provinsi','getcontact','getaddress'));
+        return view("pages.checkout", compact('countbuy','sum','provinsi','getcontact','getaddress','berat'));
     }
     public function get_province(){
         $curl = curl_init();

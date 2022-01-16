@@ -27,6 +27,8 @@ Route::get('/filterproduct/{id}', 'SearchController@filter');
 
 Route::get('/cart', 'CartController@index');
 Route::post('/add-cart', 'CartController@create')->name('add-cart');
+Route::get('/getqty/find/{id}', 'CartController@find');
+Route::post('/updateqty', 'CartController@updateqty')->name('update-qty');
 Route::get('/deletecart/{id}', 'CartController@delete');
 Route::post('/add-dummy', 'CartController@dummy')->name('add-dummy');
 Route::post('/delete-dummy', 'CartController@deletedummy')->name('delete-dummy');

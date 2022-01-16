@@ -59,7 +59,7 @@
 
                                         <div class="form-group ">
                                             {{-- <label>total berat (gram) </label> --}}
-                                            <input class="form-control" type="hidden" value="200" id="weight" name="weight">
+                                            <input class="form-control" type="text" value="{{$berat}}" id="weight" name="weight">
                                         </div>
                                         <div class="form-group ">
                                             {{-- <label>Total Belanja<span>*</span> --}}

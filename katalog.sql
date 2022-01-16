@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 16, 2022 at 04:07 PM
+-- Generation Time: Jan 16, 2022 at 05:19 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -80,7 +80,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `id_user`, `id_barang`, `qty`, `status`) VALUES
-(31, 21, 8, 1, 1);
+(31, 21, 8, 5, 1),
+(32, 21, 6, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -650,8 +651,8 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `id_user`, `category`, `province`, `city`, `subdistrict`, `address`, `kd_pos`, `phone`, `status`, `pick`) VALUES
-(8, 21, 'kantor', 'DKI Jakarta', '153', 2105, 'sdfafaqwdfwdasd', 1232, '62812731273', 0, 0),
-(9, 21, 'rumah', 'Jawa Barat', '54', 740, 'ZSJHDFJKASJKNASD', 1232, '62812731273', 1, 1);
+(8, 21, 'kantor', 'DKI Jakarta', '153', 2105, 'sdfafaqwdfwdasd', 1232, '62812731273', 0, 1),
+(9, 21, 'rumah', 'Jawa Barat', '54', 740, 'ZSJHDFJKASJKNASD', 1232, '62812731273', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -688,6 +689,7 @@ CREATE TABLE `dummy` (
   `id_user` int(11) DEFAULT NULL,
   `id_barang` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
+  `berat` varchar(255) NOT NULL,
   `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -695,8 +697,9 @@ CREATE TABLE `dummy` (
 -- Dumping data for table `dummy`
 --
 
-INSERT INTO `dummy` (`id`, `id_user`, `id_barang`, `qty`, `total`) VALUES
-(166, 21, 8, 1, 149000);
+INSERT INTO `dummy` (`id`, `id_user`, `id_barang`, `qty`, `berat`, `total`) VALUES
+(171, 21, 8, 5, '4500', 745000),
+(172, 21, 6, 5, '4500', 745000);
 
 -- --------------------------------------------------------
 
@@ -8283,7 +8286,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -8313,7 +8316,7 @@ ALTER TABLE `display`
 -- AUTO_INCREMENT for table `dummy`
 --
 ALTER TABLE `dummy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT for table `product`
