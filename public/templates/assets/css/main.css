@@ -2386,3 +2386,7 @@ table .badge-success, table .badge-primary, table .badge-warning, table .badge-d
     border: 0px !important;
     color: #fff;
 }
+.active-cat {
+    color: #0ba360 !important;
+    font-weight: 700;
+}

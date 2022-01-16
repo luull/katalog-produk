@@ -22,13 +22,13 @@ class HomeController extends Controller
             $countcart = 'kosong';
             session(['countcart' => $countcart]);
         }
-        $produk_display = DB::table('default_produk')
-        ->join('display', 'display.produk_id', '=', 'default_produk.id')
-        ->select('default_produk.nama_brg', 'default_produk.foto', 'default_produk.slug', 'default_produk.keterangan_singkat', 'default_produk.harga', 'display.id')
+        $produk_display = DB::table('product')
+        ->join('display', 'display.produk_id', '=', 'product.id')
+        ->select('product.*','product.id as idprod','display.id')
         ->orderBy('display.id', 'DESC')
         ->get();
-        $produk_default = DefaultProduct::get();
-        return view("pages.home", compact('produk_default','produk_display'));
+        $product = Product::get();
+        return view("pages.home", compact('product','produk_display'));
     }
     public function city_list(Request $req)
     {

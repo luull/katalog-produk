@@ -11,7 +11,7 @@
                                 <li class="active mb-2"><a href="/">Beranda</a>
                                 </li>
                                 <li class="mb-2"><a href="javscript:void(0);">Produk</a></li>
-                                <li class="mb-2"><a href="javscript:void(0);">{{$search}}</a></li>
+                                <li class="mb-2"><a href="javscript:void(0);">{{$getcategory->name}}</a></li>
 
                             </ul>
                         </div>
@@ -34,34 +34,35 @@
                                         <div id="withoutSpacingAccordionOne" class="collapse show" aria-labelledby="headingOne2" data-parent="#withoutSpacing">
 
 
-                                            <div class="card-body">
+                                             <div class="card-body">
                                                 <div id="iconsAccordion" class="accordion-icons">
                                                     @foreach ($category as $c )
+
+
                                                     <div class="card">
                                                         <div class="card-header" id="...">
                                                             <section class="mb-0 mt-0">
                                                                 <div role="menu" class="collapsed" data-toggle="collapse" data-target="#iconAccordion{{$c->id}}" aria-expanded="true" aria-controls="iconAccordion{{$c->id}}">
                                                                     <div class="accordion-icon"><i data-feather="home"></i></div>
-                                                                    <span class="{{$getid->kategori == $c->cid ? 'active-cat' : ''}}">{{$c->name}}</span>  <div class="icons"><svg> ... </svg></div>
+                                                                   <span class="{{$id == $c->cid ? 'active-cat' : ''}}"> {{$c->name}} </span>  <div class="icons"><svg> ... </svg></div>
                                                                 </div>
                                                             </section>
                                                         </div>
 
-                                                        <div id="iconAccordion{{$c->id}}" class="collapse {{$getid->kategori == $c->cid ? 'show' : ''}}" aria-labelledby="..." data-parent="#iconsAccordion">
+                                                        <div id="iconAccordion{{$c->id}}" class="collapse {{$id == $c->cid ? 'show' : ''}}" aria-labelledby="..." data-parent="#iconsAccordion">
                                                             <div class="card-body">
 
-                                                                 <p class="mb-0 ml-4">
-                                                                     <i class="fa fa-angle-right mr-3"></i><a class="{{$getid->kategori == $c->cid ? 'active-cat' : ''}}" href="/filterproduct/{{$c->cid}}">{{$c->sub_category}}</a>
+                                                                <p class="mb-0 ml-4">
+                                                                    <i class="fa fa-angle-right mr-3"></i><a class="{{$id == $c->cid ? 'active-cat' : ''}}" href="/filterproduct/{{$c->cid}}">{{$c->sub_category}}</a>
                                                                 </p>
 
 
                                                             </div>
                                                         </div>
-                                                  </div>
+                                                    </div>
                                                   @endforeach
                                                 </div>
                                              </div>
-
                                         </div>
                                     </div>
 
@@ -89,10 +90,11 @@
                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12 col-12">
                         <div class="container-fluid">
                             <hr>
-                            <p class="mb-4">Menampilkan {{ count($product) }} produk untuk "<strong>{{ $search }}</strong>"</p>
+                            <p class="mb-4">Menampilkan {{ count($product) }} produk untuk "<strong>{{ $getcategory->name }}</strong>"</p>
                             @if(count($product) >= 1)
                                 <div class="row mb-3">
                                     @foreach ($product as $item)
+                                    @if ($item->kategori == $id)
                                     <?PHP
                                     $firsturl = str_replace(" ", "%20", $item->name);
                                     $resulturl = str_replace("&", "n", $firsturl);
@@ -110,11 +112,12 @@
                                         </div>
                                         </a>
                                     </div>
+                                    @endif
                                     @endforeach
                                 </div>
                             @else
                                 <div class="text-center mt-5">
-                                    <h3 class="nunito bolder">Oppss..Produk {{ $search }} tidak ada</h3>
+                                    <h3 class="nunito bolder">Oppss..Produk {{ $getcategory->name }} tidak ada</h3>
                                     <p>Silahkan gunakan kata kunci yang mudah untuk pencarian</p>
                                     <img src="{{ asset('templates/assets/img/search.png')}}" class="img-fluid mt-3" style="width: 400px;" alt="">
                                 </div>

@@ -23,6 +23,7 @@ Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback')
 Route::get('/search', 'SearchController@index')->name('findproduk');
 Route::get('defaultProduk/{id}', 'SearchController@defaultproduk');
 Route::get('produk/{id}', 'SearchController@produk');
+Route::get('/filterproduct/{id}', 'SearchController@filter');
 
 Route::get('/cart', 'CartController@index');
 Route::post('/add-cart', 'CartController@create')->name('add-cart');
@@ -69,6 +70,13 @@ Route::post('/backend/createcategory', 'Backend\CategoryController@create')->nam
 Route::get('/backend/category/delete/{id}', 'Backend\CategoryController@delete')->name('delete-category');
 Route::get('/backend/category/find/{id}', 'Backend\CategoryController@find');
 Route::post('/backend/updatecategory', 'Backend\CategoryController@update')->name('update-category');
+
+Route::get('/subcategory/backend', 'Backend\subCategoryController@index');
+Route::post('/backend/createsubcategory', 'Backend\subCategoryController@create')->name('create-subcategory');
+Route::get('/backend/subcategory/delete/{id}', 'Backend\subCategoryController@delete')->name('delete-subcategory');
+Route::get('/backend/subcategory/find/{id}', 'Backend\subCategoryController@find');
+Route::post('/backend/updatesubcategory', 'Backend\subCategoryController@update')->name('update-subcategory');
+Route::get('/backend/subcategory/find/{id}', 'Backend\subCategoryController@getsubcategory');
 
 Route::get('/display/backend', 'Backend\DisplayController@index');
 Route::post('/backend/createdisplay', 'Backend\DisplayController@create')->name('create-display');

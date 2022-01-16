@@ -22,12 +22,13 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Image</th>
                                 <th>Nama</th>
                                 <th>Berat</th>
                                 <th>Harga</th>
                                 <th>Keterangan Singkat</th>
                                 <th>Kategori</th>
-                                <th>Image</th>
+                                <th>Sub Kategori</th>
                                 <th>Date created</th>
                                 <th>Created by</th>
                                 <th>Action</th>
@@ -39,17 +40,18 @@
 
                             <tr>
                                 <td>{{$i++}}</td>
+                                <td><img src="{{ asset($d->image) }}" style="max-height: 70px;" alt=""></td>
                                 <td>{{$d->name}}</td>
                                 <td>{{$d->berat}}</td>
                                 <td>{{$d->harga}}</td>
                                 <td>{{$d->keterangan_singkat}}</td>
                                 <td>{{$d->n}}</td>
-                                <td><img src="{{ asset($d->image) }}" style="max-height: 70px;" alt=""></td>
+                                <td>{{$d->sub_category}}</td>
                                 <td>{{$d->date_created}}</td>
                                 <td>{{$d->created_by}}</td>
                                 <td>
-                                    <a href="#" class="edit" id="e-{{$d->id}}" alt="Edit"><i data-feather="edit"></i></a>
-                                    <a href="/backend/product/delete/{{$d->id}}" alt="Delete"><i data-feather="trash" class="text-danger"></i></a>
+                                    <a href="#" class="edit" id="e-{{$d->pid}}" alt="Edit"><i data-feather="edit"></i></a>
+                                    <a href="/backend/product/delete/{{$d->pid}}" alt="Delete"><i data-feather="trash" class="text-danger"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -83,7 +85,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <label>Berat</label>
                             <div class="input-group mb-3">
                                 <input type="text" name="berat" class="form-control">
@@ -96,7 +98,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <label>Harga</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -106,15 +108,27 @@
                             </div>
 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kategori</label>
-                                <select name="kategori" class="form-control">
+                                <select name="kategori" id="kategori" class="form-control">
                                     @foreach ($category as $c )
                                     <option value="{{$c->id}}">{{$c->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('kategori')
+                                <br>
+                                <div class="text-danger mt-1">This field is required</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Sub Kategori</label>
+                                <select name="sub_kategori" id="sub_category" class="form-control">
+
+                                </select>
+                                @error('subcategory')
                                 <br>
                                 <div class="text-danger mt-1">This field is required</div>
                                 @enderror
@@ -185,7 +199,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <label>Berat</label>
                             <div class="input-group mb-3">
                                 <input type="text" id="edit_berat" name="berat" class="form-control">
@@ -198,7 +212,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <label>Harga</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -212,7 +226,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <select name="kategori" id="edit_kategori" class="form-control">
@@ -226,6 +240,21 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Sub Kategori</label>
+                                <select name="sub_kategori" id="edit_sub_kategori" class="form-control">
+                                    @foreach ($subcategory as $c )
+                                    <option id="edit_sub_kategori" value="{{$c->id}}">{{$c->sub_category}}</option>
+                                    @endforeach
+                                </select>
+                                @error('subcategory')
+                                <br>
+                                <div class="text-danger mt-1">This field is required</div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Keterangan singkat</label>
@@ -282,6 +311,30 @@
 </script>
 <script >
     $(document).ready(function(){
+        $("#kategori").change(function() {
+            var category = $("#kategori").val();
+            console.log(category);
+            $.ajax({
+                type: 'get',
+                method: 'get',
+                url: '/backend/subcategory/find/' + category,
+                data: '_token = <?php echo csrf_token() ?>',
+                success: function(hsl) {
+                    if (hsl.code == 404) {
+                        alert(hsl.error);
+
+                    } else {
+                        var data = [];
+                        data = hsl.result;
+                        $("#sub_category").children().remove().end();
+                        $.each(data, function(i, item) {
+                            $("#sub_category").append('<option id="edit_sub_kategori" value="' + item.id + '">' + item.sub_category + '</option>');
+                        })
+
+                    }
+                }
+            });
+        })
         $(".edit").click(function(){
             var idnya=$(this).attr('id').split('-');
             var id=idnya[1];
@@ -305,6 +358,7 @@
                     $("#edit_berat").val(hsl.berat);
                     $("#edit_harga").val(hsl.harga);
                     $("#edit_kategori").val(hsl.kategori);
+                    $("#edit_sub_kategori").val(hsl.sub_kategori);
                     $("textarea#edit_keterangan_singkat").val(hsl.keterangan_singkat);
                     $("textarea.edit_keterangan").val(hsl.keterangan);
                     $("#editModal").modal();

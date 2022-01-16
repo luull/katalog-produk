@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Category;
 use App\Product;
 use App\Http\Controllers\Controller;
+use App\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,11 +18,13 @@ class productController extends Controller
         }
         $data = DB::table('product')
             ->join('category', 'category.id', '=', 'product.kategori')
-            ->select('product.*','category.name as n')
+            ->join('sub_category', 'sub_category.id', '=', 'product.sub_kategori')
+            ->select('product.*','product.id as pid','category.name as n','sub_category.*')
             ->orderBy('product.id', 'DESC')
             ->get();
         $category = Category::all();
-        return view('backend.pages.product', compact('data','category'));
+        $subcategory = SubCategory::all();
+        return view('backend.pages.product', compact('data','category','subcategory'));
     }
     public function create(Request $request)
     {
@@ -32,6 +35,7 @@ class productController extends Controller
             'keterangan_singkat' => 'required',
             'keterangan' => 'required',
             'kategori' => 'required',
+            'sub_kategori' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $image = '';
@@ -47,6 +51,7 @@ class productController extends Controller
             'keterangan_singkat' => $request->keterangan_singkat,
             'keterangan' => $request->keterangan,
             'kategori' => $request->kategori,
+            'sub_kategori' => $request->sub_kategori,
             'image' => $image,
             'created_by' => session('backend-session')->username
         ]);
@@ -74,6 +79,7 @@ class productController extends Controller
             'keterangan_singkat' => 'required',
             'keterangan' => 'required',
             'kategori' => 'required',
+            'sub_kategori' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $image = '';
@@ -91,6 +97,7 @@ class productController extends Controller
             'keterangan_singkat' => $request->keterangan_singkat,
             'keterangan' => $request->keterangan,
             'kategori' => $request->kategori,
+            'sub_kategori' => $request->sub_kategori,
             'image' => $image,
         ]);
         if($hsl){
