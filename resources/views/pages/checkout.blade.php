@@ -96,7 +96,7 @@
                                     </p>
                                     <hr>
                                     <h4 class="nunito bolder" >Total Harga  <span id="totalnya" style="float: right;color:#f9591d;"></span></h4>
-                                    <a href="#" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Pilih Pembayaran</a>
+                                    <a href="#" id="pay-button" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Pilih Pembayaran</a>
                                 </div>
                             </div>
                         </div>
@@ -147,32 +147,7 @@ integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 crossorigin="anonymous"></script>
 <script>
     $(document).ready(function(){
-        // $('select[name="province_id"]').on('change', function(){
-        //     var namaprovinsiku = $("#province_id option:selected").attr("namaprovinsi");
-        //     $("#nama_provinsi").val(namaprovinsiku);
-        //     let provinceid = $(this).val();
-        //         console.log('prop',provinceid);
-        //     if(provinceid){
-        //         $.ajax({
-        //             type:'get',
-        //             method: 'get',
-        //             url:"/kota/"+ provinceid,
-        //             dataType:'json',
-        //             success:function(data){
-        //             $('select[name="kota_id"]').empty();
-        //                 $.each(data, function(key, value){
-        //                     $('select[name="kota_id"]').append('<option value="'+ value.city_id +'" namakota="'+ value.type +' ' +value.city_name+ '">' + value.type + ' ' + value.city_name + '</option>');
-        //                 });
-        //             }
-        //         });
-        //         }else {
-        //             $('select[name="kota_id"]').empty();
-        //         }
-        // });
-        $('select[name="nama_kota"]').on('change', function(){
-            var namakotaku = $("#nama_kota option:selected").attr("namakota");
-            $("#get_kota").val(namakotaku);
-        });
+
         $('select[name="kurir"]').on('change', function(){
             let origin = $("input[name=city_origin]").val();
             let destination = $("input[name=get_kota]").val();
@@ -185,6 +160,7 @@ crossorigin="anonymous"></script>
                     dataType:'json',
                     success:function(data){
                         $('select[name="layanan"]').empty();
+                         $('select[name="layanan"]').append('<option selected>Pilih Layanan</option>');
                         $.each(data, function(key, value){
                             $.each(value.costs, function(key1, value1){
                                 $.each(value1.cost, function(key2, value2){
@@ -240,4 +216,33 @@ crossorigin="anonymous"></script>
         });
     });
 </script>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
+</script>
+<script>
+    const payButton = document.querySelector('#pay-button');
+    payButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        snap.pay('{{ $getToken }}', {
+            // Optional
+            onSuccess: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                console.log(result)
+            },
+            // Optional
+            onPending: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                console.log(result)
+            },
+            // Optional
+            onError: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                console.log(result)
+            }
+        });
+    });
+</script>
+
 @stop

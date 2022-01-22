@@ -44,6 +44,7 @@
 
                         <div class="tab-content" id="justifyTabContent">
                             <div class="tab-pane fade show active" id="justify-home" role="tabpanel" aria-labelledby="justify-home-tab">
+                                <p><strong>Berat : {{$product->berat}} gram</strong></p>
                                 <p class="mb-4">
                                     {!! $product->keterangan_singkat !!}
                                 </p>

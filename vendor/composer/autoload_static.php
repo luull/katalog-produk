@@ -20,8 +20,8 @@ class ComposerStaticInit7c228efdb046ec439bb21667cf58d97d
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
@@ -113,6 +113,7 @@ class ComposerStaticInit7c228efdb046ec439bb21667cf58d97d
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Midtrans\\' => 9,
         ),
         'L' => 
         array (
@@ -362,6 +363,10 @@ class ComposerStaticInit7c228efdb046ec439bb21667cf58d97d
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'Midtrans\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans',
+        ),
         'League\\OAuth1\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/oauth1-client/src',
@@ -483,15 +488,27 @@ class ComposerStaticInit7c228efdb046ec439bb21667cf58d97d
     );
 
     public static $classMap = array (
+        'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
+        'App\\Banner' => __DIR__ . '/../..' . '/app/Banner.php',
         'App\\Cart' => __DIR__ . '/../..' . '/app/Cart.php',
+        'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
+        'App\\City' => __DIR__ . '/../..' . '/app/City.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Contact' => __DIR__ . '/../..' . '/app/Contact.php',
         'App\\DefaultProduct' => __DIR__ . '/../..' . '/app/DefaultProduct.php',
+        'App\\Display' => __DIR__ . '/../..' . '/app/Display.php',
+        'App\\Dumy' => __DIR__ . '/../..' . '/app/Dumy.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Auth\\GoogleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/GoogleController.php',
+        'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
+        'App\\Http\\Controllers\\Backend\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/DashboardController.php',
+        'App\\Http\\Controllers\\Backend\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/LoginController.php',
         'App\\Http\\Controllers\\CartController' => __DIR__ . '/../..' . '/app/Http/Controllers/CartController.php',
+        'App\\Http\\Controllers\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/CheckoutController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\GoogleController' => __DIR__ . '/../..' . '/app/Http/Controllers/GoogleController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\SearchController' => __DIR__ . '/../..' . '/app/Http/Controllers/SearchController.php',
+        'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -501,12 +518,17 @@ class ComposerStaticInit7c228efdb046ec439bb21667cf58d97d
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Product' => __DIR__ . '/../..' . '/app/Product.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Province' => __DIR__ . '/../..' . '/app/Province.php',
+        'App\\SubCategory' => __DIR__ . '/../..' . '/app/SubCategory.php',
+        'App\\Subdistrict' => __DIR__ . '/../..' . '/app/Subdistrict.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'App\\Users' => __DIR__ . '/../..' . '/app/Users.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -2762,6 +2784,14 @@ class ComposerStaticInit7c228efdb046ec439bb21667cf58d97d
         'League\\OAuth1\\Client\\Signature\\RsaSha1Signature' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/RsaSha1Signature.php',
         'League\\OAuth1\\Client\\Signature\\Signature' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/Signature.php',
         'League\\OAuth1\\Client\\Signature\\SignatureInterface' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/SignatureInterface.php',
+        'Midtrans\\ApiRequestor' => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans/ApiRequestor.php',
+        'Midtrans\\Config' => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans/Config.php',
+        'Midtrans\\CoreApi' => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans/CoreApi.php',
+        'Midtrans\\Notification' => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans/Notification.php',
+        'Midtrans\\Sanitizer' => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans/Sanitizer.php',
+        'Midtrans\\Snap' => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans/Snap.php',
+        'Midtrans\\SnapApiRequestor' => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans/SnapApiRequestor.php',
+        'Midtrans\\Transaction' => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans/Transaction.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',

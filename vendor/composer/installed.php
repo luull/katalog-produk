@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '6ffbd27f1642745000611bfeb4cc7ae94b995b26',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -374,12 +374,12 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '6ffbd27f1642745000611bfeb4cc7ae94b995b26',
             'dev_requirement' => false,
         ),
         'laravel/socialite' => array(
@@ -434,6 +434,15 @@
             'install_path' => __DIR__ . '/../league/oauth1-client',
             'aliases' => array(),
             'reference' => '88dd16b0cff68eb9167bfc849707d2c40ad91ddc',
+            'dev_requirement' => false,
+        ),
+        'midtrans/midtrans-php' => array(
+            'pretty_version' => '2.5.2',
+            'version' => '2.5.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../midtrans/midtrans-php',
+            'aliases' => array(),
+            'reference' => 'a1ad0c824449ca8c68c4cf11b3417ad518311d2b',
             'dev_requirement' => false,
         ),
         'mockery/mockery' => array(

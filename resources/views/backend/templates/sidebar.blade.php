@@ -6,7 +6,7 @@
             <div class="user-info">
                 <img src="{{ asset('default-user.jpeg')}}" alt="avatar">
                 <h6 class="">{{session('backend-session')->username}}</h6>
-                <p class="">Project Leader</p>
+                <p class="">Manager</p>
             </div>
         </div>
         <div class="shadow-bottom"></div>

@@ -11,11 +11,41 @@ use App\Province;
 use App\Subdistrict;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Controllers\Midtrans\Config;
+use App\Http\Controllers\Midtrans\CoreApi;
+use App\Http\Controllers\Midtrans\Snap as MidtransSnap;
+use Exception;
 class CheckoutController extends Controller
 {
     public function index()
     {
+        $params = [
+        "payment_type" => "bank_transfer",
+        "transaction_details" => [
+            "gross_amount" => 100000,
+            "order_id" => date('Y-m-dHis')
+        ],
+        "item_details" => array([
+            "id" => "1388998298204",
+            "price" => 10000,
+            "quantity" => 1,
+            "name" => "Panci Miako"
+        ], [
+            "id" => "1388998298202",
+            "price" => 10000,
+            "quantity" => 1,
+            "name" => "Ayam Geprek"
+        ]),
+        'customer_details' => [
+            'first_name' => 'Martin Mulyo Syahidin',
+            'email' => 'mulyosyahidin95@gmail.com',
+            'phone' => '081234567890',
+        ]
+    ];
+
+     $snapToken = MidtransSnap::getSnapToken($params);
+     $getToken = $snapToken->token;
+    //  dd($snapToken->token);
         $getcontact = Contact::select('contact.*','contact.id as ctid', 'city.*','subdistrict.*','users.name')
         ->join('users', 'users.id', '=', 'contact.id_user')
         ->join('city', 'city.city_id', '=', 'contact.city')
@@ -37,7 +67,7 @@ class CheckoutController extends Controller
         $sum = Dumy::where('id_user', session('user-session')->id)->sum('total');
         $berat = Dumy::where('id_user', session('user-session')->id)->sum('berat');
         $provinsi = $this->get_province();
-        return view("pages.checkout", compact('countbuy','sum','provinsi','getcontact','getaddress','berat'));
+        return view("pages.checkout", compact('countbuy','sum','provinsi','getcontact','getaddress','berat','snapToken','getToken'));
     }
     public function get_province(){
         $curl = curl_init();
@@ -142,4 +172,46 @@ class CheckoutController extends Controller
 
         }
     }
+    // public function bankTransferCharge(Request $req)
+    // {
+    //     try {
+    //     $transaction = array(
+    //             "payment_type" => "bank_transfer",
+    //             "transaction_details" => [
+    //                 "gross_amount" => 10000,
+    //                 "order_id" => date('Y-m-dHis')
+    //             ],
+    //             "customer_details" => [
+    //                 "email" => "budi.utomo@Midtrans.com",
+    //                 "first_name" => "Azhar",
+    //                 "last_name" => "Ogi",
+    //                 "phone" => "+628948484848"
+    //             ],
+    //             "item_details" => array([
+    //                 "id" => "1388998298204",
+    //                 "price" => 5000,
+    //                 "quantity" => 1,
+    //                 "name" => "Panci Miako"
+    //             ], [
+    //                 "id" => "1388998298202",
+    //                 "price" => 5000,
+    //                 "quantity" => 1,
+    //                 "name" => "Ayam Geprek"
+    //             ]),
+    //             "bank_transfer" => [
+    //                 "bank" => "bca",
+    //                 "va_number" => "111111",
+    //             ]
+    //         );
+    //         $charge = CoreApi::charge($transaction);
+    //         dd($charge->status_code);
+    //         if (!$charge) {
+    //             return ['code' => 0, 'message' => 'Terjadi kesalahan'];
+    //         }
+    //         return ['code' => 1, 'message' => 'Success', 'result' => $charge];
+    //     } catch (Exception $e) {
+    //         return ['code' => 0, 'message' => 'Terjadi kesalahan'];
+    //     }
+    // }
+
 }

@@ -48,6 +48,7 @@ Route::get('/contact/find/{id}', 'UsersController@find');
 Route::get('/city/find/{id}', 'HomeController@city_list');
 Route::get('/subdistrict/find/{id}', 'HomeController@subdistrict_list');
 
+Route::get('/test/payment', 'CheckoutController@bankTransferCharge');
 
 
 Route::get('/login/backend', 'Backend\LoginController@index');
