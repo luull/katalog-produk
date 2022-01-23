@@ -78,28 +78,31 @@
                                 </div>
                         </div>
                         <div class="col-md-4">
-                            <form id="myForm" action="{{ route('add-dummy')}}" method="post">
-                                @csrf
-                                <input type="hidden" id="getID" name="id_barang">
-                            </form>
-                            <div class="card card-cart2">
-                                <div class="card-body">
-                                    <h4 class="nunito bolder">Ringkasan Belanja</h4>
-                                    <p class="size-16">Total Harga ({{$countbuy}} Barang)
-                                        <span style="float: right;">Rp. {{ number_format($sum) }}</span>
-                                    </p>
-                                    <p class="size-16">Total Ongkir
-                                        <span id="ongkirnya" style="float: right;"></span>
-                                    </p>
-                                    <p class="size-16">Total Diskon Barang
-                                        <span style="float: right;">Rp. 0</span>
-                                    </p>
-                                    <hr>
-                                    <h4 class="nunito bolder" >Total Harga  <span id="totalnya" style="float: right;color:#f9591d;"></span></h4>
-                                    <a href="#" id="pay-button" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Pilih Pembayaran</a>
+                                <form id="myForm" action="{{ route('add-transaction')}}"  method="post">
+                                    @csrf
+                                <input type="hidden" name="id_transaction" value="{{$getid}}">
+                                <input type="hidden" name="ongkir" id="get_ongkir">
+                                <input type="hidden" name="berat" value="{{$berat}}">
+                                <input type="hidden" name="total" id="get_total">
+                                <div class="card card-cart2">
+                                    <div class="card-body">
+                                        <h4 class="nunito bolder">Ringkasan Belanja</h4>
+                                        <p class="size-16">Total Harga ({{$countbuy}} Barang)
+                                            <span style="float: right;">Rp. {{ number_format($sum) }}</span>
+                                        </p>
+                                        <p class="size-16">Total Ongkir
+                                            <span id="ongkirnya" style="float: right;"></span>
+                                        </p>
+                                        <p class="size-16">Total Diskon Barang
+                                            <span style="float: right;">Rp. 0</span>
+                                        </p>
+                                        <hr>
+                                        <h4 class="nunito bolder" >Total Harga  <span id="totalnya" style="float: right;color:#f9591d;"></span></h4>
+                                        <button id="pay-button" type="submit" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Pilih Pembayaran</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
             </div>
 </div>
 <!-- Modal edit-->
@@ -190,6 +193,8 @@ crossorigin="anonymous"></script>
             // menampilkan hasil nama harga ongkir dari select layanan yg kita pilih
             // kita akan menampilkan harga ongkirnya di id ongkos kirim, jadi kalian bisa buat inputan dengan id ongkos kirim
             let total = parseInt(totalbelanja) + parseInt(harga_ongkir);
+            $("#get_ongkir").val(harga_ongkir);
+            $("#get_total").val(total);
             // ini untuk jumlah total nya y,, jd jumlah belanja di tambah jumlah ongkos kirim
             $("#total").val(total);
             var	number_string = harga_ongkir.toString(),

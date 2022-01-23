@@ -14,28 +14,31 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Midtrans\Config;
 use App\Http\Controllers\Midtrans\CoreApi;
 use App\Http\Controllers\Midtrans\Snap as MidtransSnap;
+use App\ListTransaction;
+use App\Transaction;
 use Exception;
 class CheckoutController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
+        $listtransaction = ListTransaction::where('id_transaction', session('id_transaction'))->get();
+        foreach ($listtransaction as $s)(
+          $loop = [
+            "id" => $s->id_barang,
+            "price" => $s->total,
+            "quantity" => $s->qty,
+            "name" => $s->id_barang
+          ]
+        );
+        dd($loop);
+
         $params = [
         "payment_type" => "bank_transfer",
         "transaction_details" => [
             "gross_amount" => 100000,
-            "order_id" => date('Y-m-dHis')
+            "order_id" => $req->id
         ],
-        "item_details" => array([
-            "id" => "1388998298204",
-            "price" => 10000,
-            "quantity" => 1,
-            "name" => "Panci Miako"
-        ], [
-            "id" => "1388998298202",
-            "price" => 10000,
-            "quantity" => 1,
-            "name" => "Ayam Geprek"
-        ]),
+        "item_details" => array($loop),
         'customer_details' => [
             'first_name' => 'Martin Mulyo Syahidin',
             'email' => 'mulyosyahidin95@gmail.com',
@@ -46,6 +49,7 @@ class CheckoutController extends Controller
      $snapToken = MidtransSnap::getSnapToken($params);
      $getToken = $snapToken->token;
     //  dd($snapToken->token);
+    // dd(session('user-session')->id);
         $getcontact = Contact::select('contact.*','contact.id as ctid', 'city.*','subdistrict.*','users.name')
         ->join('users', 'users.id', '=', 'contact.id_user')
         ->join('city', 'city.city_id', '=', 'contact.city')
@@ -63,11 +67,12 @@ class CheckoutController extends Controller
         // $getaddress = Contact::where('pick', 1)->first();
         // $getcontact = Contact::where('id_user', '=' ,session('user-session')->id)->where('status', '=', 1)->get();
         // $city = City::where('city_id', $getcontact->city)->get();
-        $countbuy = Dumy::where('id_user', session('user-session')->id)->count();
-        $sum = Dumy::where('id_user', session('user-session')->id)->sum('total');
-        $berat = Dumy::where('id_user', session('user-session')->id)->sum('berat');
+        $countbuy = Dumy::where('id_transaction', $req->id)->count();
+        $sum = Dumy::where('id_transaction', $req->id)->sum('total');
+        $berat = Dumy::where('id_transaction', $req->id)->sum('berat');
+        $getid = $req->id;
         $provinsi = $this->get_province();
-        return view("pages.checkout", compact('countbuy','sum','provinsi','getcontact','getaddress','berat','snapToken','getToken'));
+        return view("pages.checkout", compact('countbuy','sum','provinsi','getcontact','getaddress','berat','snapToken','getToken','getid'));
     }
     public function get_province(){
         $curl = curl_init();
@@ -172,6 +177,34 @@ class CheckoutController extends Controller
 
         }
     }
+
+    public function transaction(Request $req)
+    {
+        $data = Dumy::where('id_transaction', $req->id_transaction)->get();
+        // dd($data);
+        foreach ($data as $item)  {
+           $hsl = ListTransaction::insert([
+            'id_transaction' => $req->id_transaction,
+            'id_user' => $item->id_user,
+            'id_barang' => $item->id_barang,
+            'qty' => $item->qty,
+            'berat' => $item->berat,
+            'total' => $item->total
+           ]);
+        }
+        $hsl2 = Transaction::insert([
+            'id_transaction' => $req->id_transaction,
+            'total_berat' => $req->berat,
+            'total_ongkir' => $req->ongkir,
+            'total' => $req->total,
+        ]);
+        if ($hsl && $hsl2) {
+            return redirect()->back()->with(['message' => 'Barang berhasil diproses', 'alert' => 'success']);
+        } else {
+            return redirect()->back()->with(['message' => 'Barang gagal diproses', 'alert' => 'danger']);
+        }
+    }
+
     // public function bankTransferCharge(Request $req)
     // {
     //     try {

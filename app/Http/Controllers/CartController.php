@@ -33,16 +33,31 @@ class CartController extends Controller
     }
     public function create(Request $req)
     {
-        $validasi = Cart::where('id_barang', $req->id_barang)->first();
+        $validasi = Cart::where('id_user', session('user-session')->id)->first();
         if($validasi){
-            $tambah = $validasi->qty + $req->qty;
-            $hsl = Cart::where('id', $validasi->id)->update([
-                'qty' => $tambah
-            ]);
-            if($hsl){
-                return redirect('/cart')->with(['message' => 'Barang berhasil ditambah ke keranjang', 'alert' => 'success']);
-            }else{
-                return redirect()->back()->with(['message' => 'Barang gagal ditambah ke keranjang', 'alert' => 'success']);
+            $validasi2 = Cart::where('id_barang', $req->id_barang)->first();
+            if($validasi2){
+
+                $tambah = $validasi->qty + $req->qty;
+                $hsl = Cart::where('id', $validasi->id)->update([
+                    'qty' => $tambah
+                ]);
+                if($hsl){
+                    return redirect('/cart')->with(['message' => 'Barang berhasil ditambah ke keranjang', 'alert' => 'success']);
+                }else{
+                    return redirect()->back()->with(['message' => 'Barang gagal ditambah ke keranjang', 'alert' => 'success']);
+                }
+            }else {
+                $hsl = Cart::create([
+                    'id_user' => session('user-session')->id,
+                    'id_barang' => $req->id_barang,
+                    'qty' => $req->qty
+                ]);
+                if($hsl){
+                    return redirect('/cart')->with(['message' => 'Barang berhasil ditambah ke keranjang', 'alert' => 'success']);
+                }else{
+                    return redirect()->back()->with(['message' => 'Barang gagal ditambah ke keranjang', 'alert' => 'success']);
+                }
             }
         }else {
             $hsl = Cart::create([
@@ -68,21 +83,46 @@ class CartController extends Controller
     }
     public function dummy(Request $req)
     {
-        $getcart = Cart::where('id_barang', $req->id_barang)->first();
+        $getcart = Cart::where('id_user', '=', session('user-session')->id)
+        ->where('id_barang','=', $req->id_barang)
+        ->first();
         $getprice = Product::where('id', $req->id_barang)->first();
         $total = $getprice->harga * $getcart->qty;
         $berat = $req->berat * $getcart->qty;
-        $hsl = Dumy::create([
-            'id_user' => $getcart->id_user,
-            'id_barang' => $getcart->id_barang,
-            'qty' => $getcart->qty,
-            'berat' => $berat,
-            'total' => $total
-        ]);
+        $a = session('user-session')->id.rand(2,50).date('d-m-Y');
+        $b = str_replace("-","",$a);
+        $transaction = 'TR-' . str_replace(".","-",$b);
+        $validate = Dumy::where('id_user', session('user-session')->id)->first();
+        if($validate){
+            $hsl = Dumy::create([
+                'id_transaction' => $validate->id_transaction,
+                'id_user' => $getcart->id_user,
+                'id_barang' => $getcart->id_barang,
+                'qty' => $getcart->qty,
+                'berat' => $berat,
+                'total' => $total
+            ]);
+        }else{
+            $hsl = Dumy::create([
+                'id_transaction' => $transaction,
+                'id_user' => $getcart->id_user,
+                'id_barang' => $getcart->id_barang,
+                'qty' => $getcart->qty,
+                'berat' => $berat,
+                'total' => $total
+            ]);
+
+        }
         $hsl2 = Cart::where('id', $getcart->id)->update([
             'status' => '1'
         ]);
         if($hsl && $hsl2){
+            if($validate){
+                session(['id_transaction' => $validate->id_transaction]);
+            }else{
+                session(['id_transaction' => $transaction]);
+            }
+            session(['id_cart' => $getcart->id]);
             return redirect()->back();
         }else{
             return redirect()->back();

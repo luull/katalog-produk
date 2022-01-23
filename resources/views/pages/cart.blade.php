@@ -93,7 +93,7 @@
                                     </p>
                                     <hr>
                                     <h4 class="nunito bolder">Total Harga  <span style="float: right;">Rp. {{ number_format($sum) }}</span></h4>
-                                    <a href="/checkout" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Beli</a>
+                                    <a href="/checkout/{{session('id_transaction')}}" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Beli</a>
                                 </div>
                             </div>
                         </div>

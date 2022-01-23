@@ -33,7 +33,7 @@ Route::get('/deletecart/{id}', 'CartController@delete');
 Route::post('/add-dummy', 'CartController@dummy')->name('add-dummy');
 Route::post('/delete-dummy', 'CartController@deletedummy')->name('delete-dummy');
 
-Route::get('/checkout', 'CheckoutController@index');
+Route::get('/checkout/{id}', 'CheckoutController@index');
 Route::get('/kota/{id}','CheckoutController@get_city');
 Route::get('/origin={city_origin}&destination={city_destination}&weight={weight}&courier={courier}','CheckoutController@get_ongkir');
 Route::post('/changepick', 'CheckoutController@changepick')->name('change-pick');
@@ -49,7 +49,7 @@ Route::get('/city/find/{id}', 'HomeController@city_list');
 Route::get('/subdistrict/find/{id}', 'HomeController@subdistrict_list');
 
 Route::get('/test/payment', 'CheckoutController@bankTransferCharge');
-
+Route::post('/transaction/payment', 'CheckoutController@transaction')->name('add-transaction');
 
 Route::get('/login/backend', 'Backend\LoginController@index');
 Route::post('/prosesloginbackend', 'Backend\LoginController@login')->name('prosesloginbackend');
