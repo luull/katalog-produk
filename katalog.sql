@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 16, 2022 at 05:19 PM
+-- Generation Time: Jan 23, 2022 at 07:44 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -80,8 +80,10 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `id_user`, `id_barang`, `qty`, `status`) VALUES
-(31, 21, 8, 5, 1),
-(32, 21, 6, 5, 1);
+(36, 21, 6, 2, 1),
+(37, 4, 6, 1, 1),
+(38, 4, 61, 1, 1),
+(39, 21, 4, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -642,8 +644,8 @@ CREATE TABLE `contact` (
   `address` text DEFAULT NULL,
   `kd_pos` int(100) DEFAULT NULL,
   `phone` varchar(13) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `pick` tinyint(1) NOT NULL
+  `status` int(11) DEFAULT 0,
+  `pick` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -652,7 +654,9 @@ CREATE TABLE `contact` (
 
 INSERT INTO `contact` (`id`, `id_user`, `category`, `province`, `city`, `subdistrict`, `address`, `kd_pos`, `phone`, `status`, `pick`) VALUES
 (8, 21, 'kantor', 'DKI Jakarta', '153', 2105, 'sdfafaqwdfwdasd', 1232, '62812731273', 0, 1),
-(9, 21, 'rumah', 'Jawa Barat', '54', 740, 'ZSJHDFJKASJKNASD', 1232, '62812731273', 1, 0);
+(9, 21, 'rumah', 'Jawa Barat', '54', 740, 'ZSJHDFJKASJKNASD', 1232, '62812731273', 0, 0),
+(10, 21, 'toko', 'Bali', '32', 473, 'adasdasdsadsdadasdasd', 13212, '62812312312', 1, 0),
+(11, 4, 'rumah', 'Banten', '232', 3299, 'asdasdasdasdasd', 13212, '628127712', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -686,6 +690,7 @@ INSERT INTO `display` (`id`, `produk_id`) VALUES
 
 CREATE TABLE `dummy` (
   `id` int(11) NOT NULL,
+  `id_transaction` varchar(255) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_barang` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
@@ -697,9 +702,36 @@ CREATE TABLE `dummy` (
 -- Dumping data for table `dummy`
 --
 
-INSERT INTO `dummy` (`id`, `id_user`, `id_barang`, `qty`, `berat`, `total`) VALUES
-(171, 21, 8, 5, '4500', 745000),
-(172, 21, 6, 5, '4500', 745000);
+INSERT INTO `dummy` (`id`, `id_transaction`, `id_user`, `id_barang`, `qty`, `berat`, `total`) VALUES
+(195, 'TR-41023012022', 4, 61, 1, '900', 189000),
+(200, 'TR-211223012022', 21, 6, 2, '1800', 298000),
+(201, 'TR-211223012022', 21, 4, 1, '900', 149000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list_transaction`
+--
+
+CREATE TABLE `list_transaction` (
+  `id` int(11) NOT NULL,
+  `id_transaction` varchar(255) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `id_barang` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `berat` varchar(255) NOT NULL,
+  `total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `list_transaction`
+--
+
+INSERT INTO `list_transaction` (`id`, `id_transaction`, `id_user`, `id_barang`, `qty`, `berat`, `total`) VALUES
+(201, 'TR-41023012022', 4, 61, 1, '900', 189000),
+(202, 'TR-41023012022', 4, 6, 1, '900', 149000),
+(203, 'TR-211223012022', 21, 6, 2, '1800', 298000),
+(204, 'TR-211223012022', 21, 4, 1, '900', 149000);
 
 -- --------------------------------------------------------
 
@@ -8147,6 +8179,32 @@ INSERT INTO `sub_category` (`id`, `id_category`, `sub_category`, `date_created`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `id` int(11) NOT NULL,
+  `id_transaction` varchar(255) NOT NULL,
+  `total_berat` varchar(255) NOT NULL,
+  `total_ongkir` varchar(255) NOT NULL,
+  `total` varchar(255) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`id`, `id_transaction`, `total_berat`, `total_ongkir`, `total`, `date_created`) VALUES
+(3, 'TR-41023012022', '1800', '24000', '362000', '2022-01-23 16:18:26'),
+(4, 'TR-211223012022', '2700', '27000', '474000', '2022-01-23 16:20:30'),
+(6, 'TR-211223012022', '2700', '27000', '474000', '2022-01-23 16:35:34'),
+(7, 'TR-211223012022', '2700', '27000', '474000', '2022-01-23 16:36:46'),
+(8, 'TR-211223012022', '2700', '27000', '474000', '2022-01-23 16:37:52');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -8230,6 +8288,12 @@ ALTER TABLE `dummy`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `list_transaction`
+--
+ALTER TABLE `list_transaction`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
@@ -8260,6 +8324,12 @@ ALTER TABLE `sub_category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -8286,7 +8356,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -8304,7 +8374,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `display`
@@ -8316,7 +8386,13 @@ ALTER TABLE `display`
 -- AUTO_INCREMENT for table `dummy`
 --
 ALTER TABLE `dummy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+
+--
+-- AUTO_INCREMENT for table `list_transaction`
+--
+ALTER TABLE `list_transaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -8341,6 +8417,12 @@ ALTER TABLE `subdistrict`
 --
 ALTER TABLE `sub_category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
