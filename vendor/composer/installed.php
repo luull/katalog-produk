@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6ffbd27f1642745000611bfeb4cc7ae94b995b26',
+        'reference' => '50b436637dcfb424fd951373c08ca4133bcfdfef',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -379,7 +379,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6ffbd27f1642745000611bfeb4cc7ae94b995b26',
+            'reference' => '50b436637dcfb424fd951373c08ca4133bcfdfef',
             'dev_requirement' => false,
         ),
         'laravel/socialite' => array(
@@ -1222,6 +1222,15 @@
             'aliases' => array(),
             'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
             'dev_requirement' => true,
+        ),
+        'xendit/xendit-php' => array(
+            'pretty_version' => '2.17.1',
+            'version' => '2.17.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../xendit/xendit-php',
+            'aliases' => array(),
+            'reference' => '2506ff074d3f9ad9d7f979ecfdde12ee76de6def',
+            'dev_requirement' => false,
         ),
     ),
 );

@@ -51,6 +51,9 @@ Route::get('/subdistrict/find/{id}', 'HomeController@subdistrict_list');
 Route::get('/test/payment', 'CheckoutController@bankTransferCharge');
 Route::post('/transaction/payment', 'CheckoutController@transaction')->name('add-transaction');
 
+Route::get('/myorder/{id}', 'MyorderController@index');
+
+
 Route::get('/login/backend', 'Backend\LoginController@index');
 Route::post('/prosesloginbackend', 'Backend\LoginController@login')->name('prosesloginbackend');
 Route::get('/logoutbackend', 'Backend\LoginController@logout');

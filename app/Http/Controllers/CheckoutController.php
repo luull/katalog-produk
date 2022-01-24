@@ -15,36 +15,42 @@ use App\Http\Controllers\Midtrans\Config;
 use App\Http\Controllers\Midtrans\CoreApi;
 use App\Http\Controllers\Midtrans\Snap as MidtransSnap;
 use App\ListTransaction;
+use App\Payget;
 use App\Transaction;
 use Exception;
 class CheckoutController extends Controller
 {
     public function index(Request $req)
     {
-        $listtransaction = ListTransaction::where('id_transaction', session('id_transaction'))->get();
-        foreach ($listtransaction as $s)(
-          $loop = [
-            "id" => $s->id_barang,
-            "price" => $s->total,
-            "quantity" => $s->qty,
-            "name" => $s->id_barang
-          ]
-        );
-        dd($loop);
-
+        if(empty(session('user-session'))){
+            redirect('/');
+        }
+        elseif(empty(session('user-session')->id)){
+            redirect('/');
+        }
+        $listtransaction = Payget::where('id_transaction', $req->id)->get()->toArray();
+        $gettotal = Payget::where('id_transaction', $req->id)->sum('price');
+        $getemail = Contact::where('id_user', session('user-session')->id)->first();
         $params = [
         "payment_type" => "bank_transfer",
         "transaction_details" => [
-            "gross_amount" => 100000,
+            "gross_amount" => $gettotal,
             "order_id" => $req->id
         ],
-        "item_details" => array($loop),
+        "item_details" => $listtransaction,
+        // [
+        //     "id" => "1388998298204",
+        //     "price" => 10000,
+        //     "quantity" => 1,
+        //     "name" => "Panci Miako"
+        // ],
         'customer_details' => [
-            'first_name' => 'Martin Mulyo Syahidin',
-            'email' => 'mulyosyahidin95@gmail.com',
-            'phone' => '081234567890',
+            'first_name' => session('user-session')->name,
+            'email' => session('user-session')->email,
+            'phone' => $getemail->phone,
         ]
     ];
+    // dd($params);
 
      $snapToken = MidtransSnap::getSnapToken($params);
      $getToken = $snapToken->token;
@@ -198,7 +204,16 @@ class CheckoutController extends Controller
             'total_ongkir' => $req->ongkir,
             'total' => $req->total,
         ]);
-        if ($hsl && $hsl2) {
+        $hsl3 = Cart::where('id', session('id_cart'))->update([
+            'status' => '3'
+        ]);
+        $hsl4 = Dumy::where('id_transaction', session('id_transaction'))->delete();
+        if ($hsl && $hsl2 && $hsl3 && $hsl4) {
+            if ($req->session()->has('id_transaction')) {
+                $req->session()->forget('id_transaction');
+            }elseif ($req->session()->has('id_cart')) {
+                $req->session()->forget('id_cart');
+            }
             return redirect()->back()->with(['message' => 'Barang berhasil diproses', 'alert' => 'success']);
         } else {
             return redirect()->back()->with(['message' => 'Barang gagal diproses', 'alert' => 'danger']);

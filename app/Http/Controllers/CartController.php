@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Product;
 use App\Dumy;
+use App\Payget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,6 +13,12 @@ class CartController extends Controller
 {
     public function index()
     {
+        if(empty(session('user-session'))){
+            redirect('/');
+        }
+        elseif(empty(session('user-session')->id)){
+            redirect('/');
+        }
         $countcart = Cart::where('id_user', session('user-session')->id)->count();
         session(['countcart' => $countcart]);
         $data = DB::table('product')
@@ -93,6 +100,7 @@ class CartController extends Controller
         $b = str_replace("-","",$a);
         $transaction = 'TR-' . str_replace(".","-",$b);
         $validate = Dumy::where('id_user', session('user-session')->id)->first();
+        $getbarang = Product::where('id', $getcart->id_barang)->first();
         if($validate){
             $hsl = Dumy::create([
                 'id_transaction' => $validate->id_transaction,
@@ -101,6 +109,13 @@ class CartController extends Controller
                 'qty' => $getcart->qty,
                 'berat' => $berat,
                 'total' => $total
+            ]);
+            $hsl3 = Payget::create([
+                'id_transaction' => $validate->id_transaction,
+                'id_user' => $getcart->id_user,
+                'name' => $getbarang->name,
+                'quantity' => $getcart->qty,
+                'price' => $total
             ]);
         }else{
             $hsl = Dumy::create([
@@ -111,12 +126,22 @@ class CartController extends Controller
                 'berat' => $berat,
                 'total' => $total
             ]);
+            $hsl3 = Payget::create([
+                'id_transaction' => $transaction,
+                'id_user' => $getcart->id_user,
+                'name' => $getbarang->name,
+                'quantity' => $getcart->qty,
+                'price' => $total
+            ]);
 
         }
+
         $hsl2 = Cart::where('id', $getcart->id)->update([
             'status' => '1'
         ]);
-        if($hsl && $hsl2){
+
+
+        if($hsl && $hsl2 && $hsl3){
             if($validate){
                 session(['id_transaction' => $validate->id_transaction]);
             }else{

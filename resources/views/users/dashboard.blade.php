@@ -12,138 +12,142 @@
         </button> {{ session('message') }}</div>
     @endif
     @csrf
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <form action="{{ route('update-avatar') }}" method="post" enctype="multipart/form-data">
-                        <input type="text" name="id" value="{{$data->id}}" id="" hidden>
-                            @if($data->photo != null)
-                            <img src="{{ asset($data->photo)}}" class="img-fluid" style="max-height: 300px;" alt="">
-                            <hr>
-                            <label class="btn btn-default btn-block mb-4">
-                            <input type="file" class="form-control" name="photo">
-                            Pilih foto
-                            </label>
-                            <input type="text" value="{{$data->photo}}" name="default" hidden>
-                            <p class="mb-0">Besar file: maksimum 2mb</p>
-                            <p>Ekstensi file yang diperbolehkan: .JPG.JPEG.PNG</p>
-                            @error('photo')
-                            <br>
-                            <div class="text-danger mt-1">Foto tidak sesuai persyaratan</div>
-                            @enderror
-                            @else
-                            <img src="{{ asset('default-user.jpeg')}}" class="img-fluid" style="max-height: 300px;" alt="">
-                            <hr>
-                            <label class="btn btn-default btn-block mb-4">
+<div class="row">
+    @include("users.sidebar")
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('update-avatar') }}" method="post" enctype="multipart/form-data">
+                            <input type="text" name="id" value="{{$data->id}}" id="" hidden>
+                                @if($data->photo != null)
+                                <img src="{{ asset($data->photo)}}" class="img-fluid" style="max-height: 300px;" alt="">
+                                <hr>
+                                <label class="btn btn-default btn-block mb-4">
                                 <input type="file" class="form-control" name="photo">
                                 Pilih foto
-                            </label>
-                            <p class="mb-0">Besar file: maksimum 2mb</p>
-                            <p>Ekstensi file yang diperbolehkan: .JPG.JPEG.PNG</p>
-                            @error('photo')
-                            <br>
-                            <div class="text-danger mt-1">Foto tidak sesuai persyaratan</div>
-                            @enderror
-                            @endif
-                            <button type="submit" class="btn btn-success btn-block">Simpan</button>
-                        </form>
+                                </label>
+                                <input type="text" value="{{$data->photo}}" name="default" hidden>
+                                <p class="mb-0">Besar file: maksimum 2mb</p>
+                                <p>Ekstensi file yang diperbolehkan: .JPG.JPEG.PNG</p>
+                                @error('photo')
+                                <br>
+                                <div class="text-danger mt-1">Foto tidak sesuai persyaratan</div>
+                                @enderror
+                                @else
+                                <img src="{{ asset('default-user.jpeg')}}" class="img-fluid" style="max-height: 300px;" alt="">
+                                <hr>
+                                <label class="btn btn-default btn-block mb-4">
+                                    <input type="file" class="form-control" name="photo">
+                                    Pilih foto
+                                </label>
+                                <p class="mb-0">Besar file: maksimum 2mb</p>
+                                <p>Ekstensi file yang diperbolehkan: .JPG.JPEG.PNG</p>
+                                @error('photo')
+                                <br>
+                                <div class="text-danger mt-1">Foto tidak sesuai persyaratan</div>
+                                @enderror
+                                @endif
+                                <button type="submit" class="btn btn-success btn-block">Simpan</button>
+                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <i data-feather="user" class="mb-3"></i> {{ session('user-session')->name}}
-                            <div class="card">
-                                <div class="card-body">
-                                    <ul class="nav nav-tabs  mb-3" id="simpletab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Biodata Diri</a>
-                                        </li>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <i data-feather="user" class="mb-3"></i> {{ session('user-session')->name}}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <ul class="nav nav-tabs  mb-3" id="simpletab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Biodata Diri</a>
+                                            </li>
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Daftar Alamat</a>
-                                        </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Daftar Alamat</a>
+                                            </li>
 
-                                    </ul>
-                                    <div class="tab-content" id="simpletabContent">
-                                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                                    <form action="{{ route('update-avatar') }}" method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <input type="text" name="id" value="{{$data->id}}" id="" hidden>
-                                                        <div class="row mb-4">
-                                                            <div class="col-md-12">
-                                                                <h3 class="semi-bolder size-14 text-muted">Ubah Biodata Diri</h3>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mb-4">
-                                                            <div class="col-md-3">
-                                                                <p>Nama</p>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input type="text" class="form-control" name="name" value="{{$data->name}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mb-4">
-                                                            <div class="col-md-3">
-                                                                <p>Email</p>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input type="text" class="form-control" name="" value="{{$data->email}}" readonly>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                        </div>
-                                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                                    @if ($countcontact == null)
-                                                        <button class="btn btn-success" data-toggle="modal" data-target="#address">Aktivasi Alamat</button>
-                                                    @else
-                                                        <button class="btn btn-success mb-3" style="float: right" data-toggle="modal" data-target="#address">Tambah Alamat</button>
-                                                        <br>
-                                                        <br>
-                                                        <br>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                @foreach ($contact as $c)
-                                                                @if($c->status == 1)
-                                                                <div class="infobox-3" style="background-color:#f3fff4bd;border:1px solid green">
-                                                                @else
-                                                                <div class="infobox-3">
-                                                                @endif
-                                                                    @if($c->status == 1)
-                                                                    <div class="info-icon">
-                                                                        <i data-feather="map-pin" style="max-height:50px;"></i> <span style="color: #fff;">Utama</span>
-                                                                    </div>
-                                                                    @endif
-                                                                   <div class="row">
-                                                                       <div class="col-md-10">
-                                                                        <p class="size-16">{{$c->category}}</p>
-                                                                        <p class="size-18">{{$getuser->name}}</p>
-                                                                        <p class="info-text">{{$c->address}}, {{$c->province}}, {{$c->type}} {{$c->city_name}}, {{$c->subdistrict_name}} - {{$c->kd_pos}}</p>
-                                                                        <a class="info-link edit" id="e-{{$c->idny}}"><b>Ubah Alamat</b></a> |  <a class="info-link" href="/deletecontact/{{$c->idny}}"><b>Hapus</b></a>
-                                                                       </div>
-                                                                       @if($c->status != 1)
-                                                                       <div class="col-md-2">
-                                                                           <div class="align-self-center">
-                                                                                <br>
-                                                                                <form action="{{ route('update-status') }}" method="post" enctype="multipart/form-data">
-                                                                                    @csrf
-                                                                                    <input type="text" value="{{$c->idny}}" name="id" hidden>
-                                                                                    <button class="btn btn-success align-self-center">Pilih</button>
-                                                                                </form>
-                                                                           </div>
-
-                                                                       </div>
-                                                                       @endif
-                                                                   </div>
+                                        </ul>
+                                        <div class="tab-content" id="simpletabContent">
+                                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                        <form action="{{ route('update-avatar') }}" method="post" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="text" name="id" value="{{$data->id}}" id="" hidden>
+                                                            <div class="row mb-4">
+                                                                <div class="col-md-12">
+                                                                    <h3 class="semi-bolder size-14 text-muted">Ubah Biodata Diri</h3>
                                                                 </div>
-                                                                @endforeach
                                                             </div>
+                                                            <div class="row mb-4">
+                                                                <div class="col-md-3">
+                                                                    <p>Nama</p>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" name="name" value="{{$data->name}}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-4">
+                                                                <div class="col-md-3">
+                                                                    <p>Email</p>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" name="" value="{{$data->email}}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                            </div>
+                                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                                        @if ($countcontact == null)
+                                                            <button class="btn btn-success" data-toggle="modal" data-target="#address">Aktivasi Alamat</button>
+                                                        @else
+                                                            <button class="btn btn-success mb-3" style="float: right" data-toggle="modal" data-target="#address">Tambah Alamat</button>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    @foreach ($contact as $c)
+                                                                    @if($c->status == 1)
+                                                                    <div class="infobox-3" style="background-color:#f3fff4bd;border:1px solid green">
+                                                                    @else
+                                                                    <div class="infobox-3">
+                                                                    @endif
+                                                                        @if($c->status == 1)
+                                                                        <div class="info-icon">
+                                                                            <i data-feather="map-pin" style="max-height:50px;"></i> <span style="color: #fff;">Utama</span>
+                                                                        </div>
+                                                                        @endif
+                                                                       <div class="row">
+                                                                           <div class="col-md-10">
+                                                                            <p class="size-16">{{$c->category}}</p>
+                                                                            <p class="size-18">{{$getuser->name}}</p>
+                                                                            <p class="info-text">{{$c->address}}, {{$c->province}}, {{$c->type}} {{$c->city_name}}, {{$c->subdistrict_name}} - {{$c->kd_pos}}</p>
+                                                                            <a class="info-link edit" id="e-{{$c->idny}}"><b>Ubah Alamat</b></a> |  <a class="info-link" href="/deletecontact/{{$c->idny}}"><b>Hapus</b></a>
+                                                                           </div>
+                                                                           @if($c->status != 1)
+                                                                           <div class="col-md-2">
+                                                                               <div class="align-self-center">
+                                                                                    <br>
+                                                                                    <form action="{{ route('update-status') }}" method="post" enctype="multipart/form-data">
+                                                                                        @csrf
+                                                                                        <input type="text" value="{{$c->idny}}" name="id" hidden>
+                                                                                        <button class="btn btn-success align-self-center">Pilih</button>
+                                                                                    </form>
+                                                                               </div>
 
+                                                                           </div>
+                                                                           @endif
+                                                                       </div>
+                                                                    </div>
+                                                                    @endforeach
+                                                                </div>
+
+                                                            </div>
+                                                        @endif
                                                         </div>
-                                                    @endif
-                                                    </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -151,6 +155,7 @@
                     </div>
                 </div>
             </div>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="address" tabindex="-1" role="dialog" aria-labelledby="addressLabel" aria-hidden="true">

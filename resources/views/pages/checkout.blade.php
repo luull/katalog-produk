@@ -59,7 +59,7 @@
 
                                         <div class="form-group ">
                                             {{-- <label>total berat (gram) </label> --}}
-                                            <input class="form-control" type="text" value="{{$berat}}" id="weight" name="weight">
+                                            {{-- <input class="form-control" type="text" value="{{$berat}}" id="weight" name="weight"> --}}
                                         </div>
                                         <div class="form-group ">
                                             {{-- <label>Total Belanja<span>*</span> --}}
@@ -98,7 +98,7 @@
                                         </p>
                                         <hr>
                                         <h4 class="nunito bolder" >Total Harga  <span id="totalnya" style="float: right;color:#f9591d;"></span></h4>
-                                        <button id="pay-button" type="submit" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Pilih Pembayaran</button>
+                                        <button type="submit" class="btn btn-block mt-5 bolder nunito size-18 p-2 {{ $sum == '0' ? 'btn-default disabled' : 'btn-success'}}">Pilih Pembayaran</button>
                                     </div>
                                 </div>
                             </div>
@@ -143,11 +143,41 @@
         </div>
     </div>
 </div>
+
 @stop
 @section('script')
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 crossorigin="anonymous"></script>
+@if(session('alert') === 'success')
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
+</script>
+<script>
+$(document).ready(function(){
+    snap.pay('{{ $getToken }}', {
+            // Optional
+            onSuccess: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                console.log(result)
+            },
+            // Optional
+            onPending: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                window.location = "/myorder"
+                console.log(result)
+            },
+            // Optional
+            onError: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                console.log(result)
+            }
+        });
+});
+</script>
+@endif
 <script>
     $(document).ready(function(){
 
@@ -221,33 +251,32 @@ crossorigin="anonymous"></script>
         });
     });
 </script>
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
-</script>
-<script>
-    const payButton = document.querySelector('#pay-button');
-    payButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        snap.pay('{{ $getToken }}', {
-            // Optional
-            onSuccess: function(result) {
-                /* You may add your own js here, this is just example */
-                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                console.log(result)
-            },
-            // Optional
-            onPending: function(result) {
-                /* You may add your own js here, this is just example */
-                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                console.log(result)
-            },
-            // Optional
-            onError: function(result) {
-                /* You may add your own js here, this is just example */
-                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                console.log(result)
-            }
-        });
-    });
-</script>
+
+{{-- <script>
+//     const payButton = document.querySelector('#pay-button');
+//     payButton.addEventListener('click', function(e) {
+//         e.preventDefault();
+//         snap.pay('{{ $getToken }}', {
+//             // Optional
+//             onSuccess: function(result) {
+//                 /* You may add your own js here, this is just example */
+//                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+//                 console.log(result)
+//             },
+//             // Optional
+//             onPending: function(result) {
+//                 /* You may add your own js here, this is just example */
+//                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+//                 console.log(result)
+//             },
+//             // Optional
+//             onError: function(result) {
+//                 /* You may add your own js here, this is just example */
+//                 document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+//                 console.log(result)
+//             }
+//         });
+//     });
+// </script> --}}
 
 @stop
