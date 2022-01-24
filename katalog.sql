@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 23, 2022 at 07:44 PM
+-- Generation Time: Jan 24, 2022 at 03:35 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -80,10 +80,10 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `id_user`, `id_barang`, `qty`, `status`) VALUES
-(36, 21, 6, 2, 1),
-(37, 4, 6, 1, 1),
-(38, 4, 61, 1, 1),
-(39, 21, 4, 1, 1);
+(39, 21, 4, 1, 0),
+(40, 21, 5, 1, 0),
+(41, 4, 63, 2, 0),
+(42, 4, 27, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -698,15 +698,6 @@ CREATE TABLE `dummy` (
   `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `dummy`
---
-
-INSERT INTO `dummy` (`id`, `id_transaction`, `id_user`, `id_barang`, `qty`, `berat`, `total`) VALUES
-(195, 'TR-41023012022', 4, 61, 1, '900', 189000),
-(200, 'TR-211223012022', 21, 6, 2, '1800', 298000),
-(201, 'TR-211223012022', 21, 4, 1, '900', 149000);
-
 -- --------------------------------------------------------
 
 --
@@ -723,15 +714,20 @@ CREATE TABLE `list_transaction` (
   `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `list_transaction`
+-- Table structure for table `payget`
 --
 
-INSERT INTO `list_transaction` (`id`, `id_transaction`, `id_user`, `id_barang`, `qty`, `berat`, `total`) VALUES
-(201, 'TR-41023012022', 4, 61, 1, '900', 189000),
-(202, 'TR-41023012022', 4, 6, 1, '900', 149000),
-(203, 'TR-211223012022', 21, 6, 2, '1800', 298000),
-(204, 'TR-211223012022', 21, 4, 1, '900', 149000);
+CREATE TABLE `payget` (
+  `id` int(11) NOT NULL,
+  `id_transaction` varchar(255) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `name` text NOT NULL,
+  `quantity` int(100) NOT NULL,
+  `price` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -8188,6 +8184,7 @@ CREATE TABLE `transaction` (
   `total_berat` varchar(255) NOT NULL,
   `total_ongkir` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -8195,12 +8192,8 @@ CREATE TABLE `transaction` (
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`id`, `id_transaction`, `total_berat`, `total_ongkir`, `total`, `date_created`) VALUES
-(3, 'TR-41023012022', '1800', '24000', '362000', '2022-01-23 16:18:26'),
-(4, 'TR-211223012022', '2700', '27000', '474000', '2022-01-23 16:20:30'),
-(6, 'TR-211223012022', '2700', '27000', '474000', '2022-01-23 16:35:34'),
-(7, 'TR-211223012022', '2700', '27000', '474000', '2022-01-23 16:36:46'),
-(8, 'TR-211223012022', '2700', '27000', '474000', '2022-01-23 16:37:52');
+INSERT INTO `transaction` (`id`, `id_transaction`, `total_berat`, `total_ongkir`, `total`, `status`, `date_created`) VALUES
+(25, 'TR-42524012022', '4500', '60000', '200000', 0, '2022-01-24 14:24:25');
 
 -- --------------------------------------------------------
 
@@ -8294,6 +8287,12 @@ ALTER TABLE `list_transaction`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `payget`
+--
+ALTER TABLE `payget`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
@@ -8356,7 +8355,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -8386,13 +8385,19 @@ ALTER TABLE `display`
 -- AUTO_INCREMENT for table `dummy`
 --
 ALTER TABLE `dummy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT for table `list_transaction`
 --
 ALTER TABLE `list_transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+
+--
+-- AUTO_INCREMENT for table `payget`
+--
+ALTER TABLE `payget`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -8422,7 +8427,7 @@ ALTER TABLE `sub_category`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`
