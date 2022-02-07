@@ -59,7 +59,7 @@
 
                                         <div class="form-group ">
                                             {{-- <label>total berat (gram) </label> --}}
-                                            {{-- <input class="form-control" type="text" value="{{$berat}}" id="weight" name="weight"> --}}
+                                            <input class="form-control" type="hidden" value="{{$berat}}" id="weight" name="weight">
                                         </div>
                                         <div class="form-group ">
                                             {{-- <label>Total Belanja<span>*</span> --}}
@@ -186,6 +186,7 @@ $(document).ready(function(){
             let destination = $("input[name=get_kota]").val();
             let courier = $("select[name=kurir]").val();
             let weight = $("input[name=weight]").val();
+            console.log(destination);
                 if(courier){
                     $.ajax({
                     url:"/origin="+origin+"&destination="+destination+"&weight="+weight+"&courier="+courier,

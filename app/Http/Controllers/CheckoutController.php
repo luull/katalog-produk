@@ -68,8 +68,9 @@ class CheckoutController extends Controller
         ->join('city', 'city.city_id', '=', 'contact.city')
         ->join('subdistrict', 'subdistrict.subdistrict_id', '=', 'contact.subdistrict')
         ->where('contact.id_user', '=', session('user-session')->id)
-        ->where('contact.pick', '=', 1)
+        ->where('contact.pick', '=', '1')
         ->first();
+
         // $getaddress = Contact::where('pick', 1)->first();
         // $getcontact = Contact::where('id_user', '=' ,session('user-session')->id)->where('status', '=', 1)->get();
         // $city = City::where('city_id', $getcontact->city)->get();
@@ -104,9 +105,7 @@ class CheckoutController extends Controller
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
-            //ini kita decode data nya terlebih dahulu
             $response=json_decode($response,true);
-            //ini untuk mengambil data provinsi yang ada di dalam rajaongkir resul
             $data_pengirim = $response['rajaongkir']['results'];
             return $data_pengirim;
         }
@@ -204,62 +203,22 @@ class CheckoutController extends Controller
             'total_ongkir' => $req->ongkir,
             'total' => $req->total,
         ]);
-        $hsl3 = Cart::where('id', session('id_cart'))->update([
-            'status' => '3'
+        $hsl3 = Cart::where('id_user', session('user-session')->id)->update([
+            'status' => '0'
         ]);
         $hsl4 = Dumy::where('id_transaction', session('id_transaction'))->delete();
         if ($hsl && $hsl2 && $hsl3 && $hsl4) {
-            if ($req->session()->has('id_transaction')) {
-                $req->session()->forget('id_transaction');
-            }elseif ($req->session()->has('id_cart')) {
-                $req->session()->forget('id_cart');
-            }
+            $hsl3 = Payget::create([
+                'id_transaction' =>  $req->id_transaction,
+                'id_user' => session('user-session')->id,
+                'name' => 'Ongkir',
+                'quantity' => '1',
+                'price' =>  $req->ongkir
+            ]);
             return redirect()->back()->with(['message' => 'Barang berhasil diproses', 'alert' => 'success']);
         } else {
             return redirect()->back()->with(['message' => 'Barang gagal diproses', 'alert' => 'danger']);
         }
     }
-
-    // public function bankTransferCharge(Request $req)
-    // {
-    //     try {
-    //     $transaction = array(
-    //             "payment_type" => "bank_transfer",
-    //             "transaction_details" => [
-    //                 "gross_amount" => 10000,
-    //                 "order_id" => date('Y-m-dHis')
-    //             ],
-    //             "customer_details" => [
-    //                 "email" => "budi.utomo@Midtrans.com",
-    //                 "first_name" => "Azhar",
-    //                 "last_name" => "Ogi",
-    //                 "phone" => "+628948484848"
-    //             ],
-    //             "item_details" => array([
-    //                 "id" => "1388998298204",
-    //                 "price" => 5000,
-    //                 "quantity" => 1,
-    //                 "name" => "Panci Miako"
-    //             ], [
-    //                 "id" => "1388998298202",
-    //                 "price" => 5000,
-    //                 "quantity" => 1,
-    //                 "name" => "Ayam Geprek"
-    //             ]),
-    //             "bank_transfer" => [
-    //                 "bank" => "bca",
-    //                 "va_number" => "111111",
-    //             ]
-    //         );
-    //         $charge = CoreApi::charge($transaction);
-    //         dd($charge->status_code);
-    //         if (!$charge) {
-    //             return ['code' => 0, 'message' => 'Terjadi kesalahan'];
-    //         }
-    //         return ['code' => 1, 'message' => 'Success', 'result' => $charge];
-    //     } catch (Exception $e) {
-    //         return ['code' => 0, 'message' => 'Terjadi kesalahan'];
-    //     }
-    // }
 
 }

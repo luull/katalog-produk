@@ -115,7 +115,7 @@ class CartController extends Controller
                 'id_user' => $getcart->id_user,
                 'name' => $getbarang->name,
                 'quantity' => $getcart->qty,
-                'price' => $total
+                'price' => $getprice->harga
             ]);
         }else{
             $hsl = Dumy::create([
@@ -131,7 +131,7 @@ class CartController extends Controller
                 'id_user' => $getcart->id_user,
                 'name' => $getbarang->name,
                 'quantity' => $getcart->qty,
-                'price' => $total
+                'price' =>  $getprice->harga
             ]);
 
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Dumy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Midtrans\Snap as MidtransSnap;
@@ -18,7 +19,12 @@ class MyorderController extends Controller
         elseif(empty(session('user-session')->id)){
             redirect('/');
         }
-        $countbuy = Dumy::where('id_transaction', $req->id)->count();
-        return view("users.myorder", compact('countbuy'));
+        if ($req->session()->has('id_transaction')) {
+            $req->session()->forget('id_transaction');
+        }elseif ($req->session()->has('id_cart')) {
+            $req->session()->forget('id_cart');
+        }
+        $countcart = Cart::where('id_user', session('user-session')->id)->count();
+        return view("users.myorder", compact('countcart'));
     }
 }

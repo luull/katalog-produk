@@ -7,18 +7,20 @@
             <ul class="list-group list-group-icons-meta">
                 <li class="list-group-item list-group-item-action {{ Request::is('dashboard') ? 'active' : '' }}">
                     <a href="/dashboard">
-                    <div class="media">
-                        <div class="d-flex mr-3">
-                            <i data-feather="user"></i>
-                        </div>
-                        <div class="media-body">
-                            <h6 class="tx-inverse">Profil</h6>
+                        <div class="media">
+                            <div class="d-flex mr-3">
+                                <i data-feather="user"></i>
+                            </div>
+                            <div class="media-body">
+                                <h6 class="tx-inverse">Profil</h6>
 
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </li>
                 <li class="list-group-item list-group-item-action {{ Request::is('myorder') ? 'active' : '' }}">
+
+                    <a href="/myorder">
                     <div class="media">
                         <div class="d-flex mr-3">
                             <i data-feather="truck"></i>
@@ -28,6 +30,7 @@
 
                         </div>
                     </div>
+                    </a>
                 </li>
                 <li class="list-group-item list-group-item-action {{ Request::is('') ? 'active' : '' }}">
                     <div class="media">
