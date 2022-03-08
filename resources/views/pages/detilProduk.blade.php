@@ -75,15 +75,20 @@
 
                                     <hr>
                                     <div class="row mt-4">
-                                        <div class="col-md-5 mb-2">
-                                            <button class="btn btn-outline-success btn-block">Beli</button>
-                                        </div>
+                                        {{-- <form id="myForm" action="{{ route('add-dummy')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" value="{{$product->name}}" name="id_barang">
+                                            <input type="hidden" value="{{$product->berat}}" name="berat">
+                                            <div class="col-md-5 mb-2">
+                                                <button class="btn btn-outline-success btn-block">Beli</button>
+                                            </div>
+                                        </form> --}}
                                         @if (session('user-session') != null)
-                                        <div class="col-md-7 mb-2">
+                                        <div class="col-md-12 mb-2">
                                             <button type="submit" class="btn btn-sm btn-success btn-block"> <i data-feather="plus"></i> Keranjang</button>
                                         </div>
                                         @else
-                                        <div class="col-md-7 mb-2">
+                                        <div class="col-md-12 mb-2">
                                             <a href="/login" class="btn btn-sm btn-success btn-block"> <i data-feather="plus"></i> Keranjang</a>
                                         </div>
                                         @endif
