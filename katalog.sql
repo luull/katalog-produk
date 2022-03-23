@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2022 at 06:02 AM
+-- Generation Time: Mar 23, 2022 at 08:13 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -84,7 +84,11 @@ INSERT INTO `cart` (`id`, `id_user`, `id_barang`, `qty`, `status`) VALUES
 (46, 21, 30, 5, 0),
 (47, 21, 28, 3, 0),
 (48, 4, 7, 2, 0),
-(49, 4, 18, 4, 0);
+(49, 4, 18, 4, 0),
+(50, 21, 70, 3, 0),
+(51, 4, 61, 1, 0),
+(52, 21, 11, 1, 0),
+(53, 21, 5, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -657,7 +661,7 @@ INSERT INTO `contact` (`id`, `id_user`, `category`, `province`, `city`, `subdist
 (8, 21, 'kantor', 'DKI Jakarta', '153', 2105, 'sdfafaqwdfwdasd', 1232, '62812731273', 0, 1),
 (9, 21, 'rumah', 'Jawa Barat', '54', 740, 'ZSJHDFJKASJKNASD', 1232, '62812731273', 0, 0),
 (10, 21, 'toko', 'Bali', '32', 473, 'adasdasdsadsdadasdasd', 13212, '62812312312', 1, 0),
-(11, 4, 'rumah', 'Banten', '232', 3299, 'asdasdasdasdasd', 13212, '628127712', 1, 1);
+(11, 4, 'rumah', 'Banten', '232', 3299, 'asdasdasdasdasd', 13212, '628127712', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -723,7 +727,11 @@ INSERT INTO `list_transaction` (`id`, `id_transaction`, `id_user`, `id_barang`, 
 (266, 'TR-211623032022', 21, 28, 3, '2700', 90000),
 (267, 'TR-211623032022', 21, 30, 5, '4500', 85000),
 (268, 'TR-4823032022', 4, 18, 4, '3600', 260000),
-(269, 'TR-4823032022', 4, 7, 2, '1800', 298000);
+(269, 'TR-4823032022', 4, 7, 2, '1800', 298000),
+(270, 'TR-214923032022', 21, 70, 3, '2700', 270000),
+(271, 'TR-4223032022', 4, 61, 1, '900', 189000),
+(273, 'TR-212323032022', 21, 11, 1, '900', 149000),
+(274, 'TR-212723032022', 21, 5, 1, '900', 149000);
 
 -- --------------------------------------------------------
 
@@ -752,7 +760,15 @@ INSERT INTO `payget` (`id`, `id_transaction`, `id_user`, `name`, `quantity`, `pr
 (73, 'TR-42623032022', 4, 'SHAD Endiabet, 30 kapsul', 2, 149000),
 (74, 'TR-4823032022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
 (75, 'TR-4823032022', 4, 'SHAD Endiabet, 30 kapsul', 2, 149000),
-(76, 'TR-4823032022', 4, 'Ongkir', 1, 72000);
+(76, 'TR-4823032022', 4, 'Ongkir', 1, 72000),
+(77, 'TR-214923032022', 21, 'Salsabil Madu Multiflora 19', 3, 90000),
+(78, 'TR-214923032022', 21, 'Ongkir', 1, 27000),
+(79, 'TR-4223032022', 4, 'Madu Salsabil Plus Royal Jelly', 1, 189000),
+(80, 'TR-4223032022', 4, 'Ongkir', 1, 12000),
+(81, 'TR-212323032022', 21, 'SHAD Uliver 30 kapsul', 1, 149000),
+(82, 'TR-212323032022', 21, 'Ongkir', 1, 27000),
+(83, 'TR-212723032022', 21, 'SHAD Nigella Plus 50 kapsul', 1, 149000),
+(84, 'TR-212723032022', 21, 'Ongkir', 1, 9000);
 
 -- --------------------------------------------------------
 
@@ -8207,6 +8223,7 @@ CREATE TABLE `transaction` (
   `id` int(11) NOT NULL,
   `id_transaction` varchar(255) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `id_address` int(11) NOT NULL,
   `total_berat` varchar(255) NOT NULL,
   `total_ongkir` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
@@ -8218,9 +8235,12 @@ CREATE TABLE `transaction` (
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`id`, `id_transaction`, `id_user`, `total_berat`, `total_ongkir`, `total`, `status`, `date_created`) VALUES
-(36, 'TR-211623032022', 21, '7200', '63000', '238000', 0, '2022-03-23 03:35:38'),
-(37, 'TR-4823032022', 4, '5400', '72000', '630000', 0, '2022-03-23 03:54:35');
+INSERT INTO `transaction` (`id`, `id_transaction`, `id_user`, `id_address`, `total_berat`, `total_ongkir`, `total`, `status`, `date_created`) VALUES
+(36, 'TR-211623032022', 21, 0, '7200', '63000', '238000', 0, '2022-03-23 03:35:38'),
+(38, 'TR-214923032022', 21, 0, '2700', '27000', '297000', 0, '2022-03-23 06:13:48'),
+(39, 'TR-4223032022', 4, 11, '900', '12000', '201000', 0, '2022-03-23 06:22:52'),
+(40, 'TR-212323032022', 21, 10, '900', '27000', '176000', 0, '2022-03-23 06:24:43'),
+(41, 'TR-212723032022', 21, 8, '900', '9000', '158000', 0, '2022-03-23 06:48:38');
 
 -- --------------------------------------------------------
 
@@ -8382,7 +8402,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -8412,19 +8432,19 @@ ALTER TABLE `display`
 -- AUTO_INCREMENT for table `dummy`
 --
 ALTER TABLE `dummy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=284;
 
 --
 -- AUTO_INCREMENT for table `list_transaction`
 --
 ALTER TABLE `list_transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
 
 --
 -- AUTO_INCREMENT for table `payget`
 --
 ALTER TABLE `payget`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -8454,7 +8474,7 @@ ALTER TABLE `sub_category`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -32,17 +32,6 @@
                     </div>
                     </a>
                 </li>
-                <li class="list-group-item list-group-item-action {{ Request::is('') ? 'active' : '' }}">
-                    <div class="media">
-                        <div class="d-flex mr-3">
-                            <i data-feather="home"></i>
-                        </div>
-                        <div class="media-body">
-                            <h6 class="tx-inverse">Flexible</h6>
-
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>

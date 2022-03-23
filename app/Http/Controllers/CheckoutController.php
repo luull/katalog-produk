@@ -200,6 +200,7 @@ class CheckoutController extends Controller
         $hsl2 = Transaction::insert([
             'id_transaction' => $req->id_transaction,
             'id_user' => session('user-session')->id,
+            'id_address' => $req->id_address,
             'total_berat' => $req->berat,
             'total_ongkir' => $req->ongkir,
             'total' => $req->total,

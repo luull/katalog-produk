@@ -81,6 +81,7 @@
                                 <form id="myForm" action="{{ route('add-transaction')}}"  method="post">
                                     @csrf
                                 <input type="hidden" name="id_transaction" value="{{$getid}}">
+                                <input type="hidden" name="id_address" value="{{$getaddress->ctid}}">
                                 <input type="hidden" name="ongkir" id="get_ongkir">
                                 <input type="hidden" name="berat" value="{{$berat}}">
                                 <input type="hidden" name="total" id="get_total">

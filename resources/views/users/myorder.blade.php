@@ -46,6 +46,13 @@
                                                             <p>{{ $t->id_transaction}}</p>
                                                             <h4>{{$p->name}}</h4>
                                                             <h4>Rp.{{$p->harga}}</h4>
+                                                            @foreach ($getaddress as $g )
+                                                                @if ($g->ctid == $t->id_address)
+                                                                    <small>
+                                                                        {{ $g->address}}, {{$g->city_name}}, {{$g->subdistrict_name }}, {{$g->province }}, {{$g->kd_pos }}
+                                                                    </small>
+                                                                @endif
+                                                            @endforeach
                                                         </div>
                                                     @endif
                                                 @endforeach
