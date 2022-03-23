@@ -6,7 +6,9 @@ use App\Cart;
 use App\Dumy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Midtrans\Snap as MidtransSnap;
+use App\ListTransaction;
 use App\Payget;
+use App\Product;
 use App\Transaction;
 use Exception;
 class MyorderController extends Controller
@@ -24,7 +26,10 @@ class MyorderController extends Controller
         }elseif ($req->session()->has('id_cart')) {
             $req->session()->forget('id_cart');
         }
+        $transaction = Transaction::where('id_user', session('user-session')->id)->get();
+        $list = ListTransaction::where('id_user', session('user-session')->id)->get();
+        $product = Product::all();
         $countcart = Cart::where('id_user', session('user-session')->id)->count();
-        return view("users.myorder", compact('countcart'));
+        return view("users.myorder", compact('countcart','transaction','list','product'));
     }
 }
