@@ -52,6 +52,7 @@ Route::get('/test/payment', 'CheckoutController@bankTransferCharge');
 Route::post('/transaction/payment', 'CheckoutController@transaction')->name('add-transaction');
 
 Route::get('/myorder', 'MyorderController@index');
+Route::post('/cekresi', 'MyorderController@cekresi')->name('cekresi');
 
 
 Route::get('/login/backend', 'Backend\LoginController@index');

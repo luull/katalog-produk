@@ -41,6 +41,9 @@
                                                 <option value="jne">JNE</option>
                                                 <option value="tiki">TIKI</option>
                                                 <option value="pos">POS INDONESIA</option>
+                                                <option value="ninja">NINJA XPRESS</option>
+                                                <option value="sicepat">SICEPAT</option>
+                                                <option value="anteraja">ANTER AJA</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -85,6 +88,7 @@
                                 <input type="hidden" name="ongkir" id="get_ongkir">
                                 <input type="hidden" name="berat" value="{{$berat}}">
                                 <input type="hidden" name="total" id="get_total">
+                                <input type="hidden" name="kurir" id="courier">
                                 <div class="card card-cart2">
                                     <div class="card-body">
                                         <h4 class="nunito bolder">Ringkasan Belanja</h4>
@@ -187,7 +191,8 @@ $(document).ready(function(){
             let destination = $("input[name=get_kota]").val();
             let courier = $("select[name=kurir]").val();
             let weight = $("input[name=weight]").val();
-            console.log(destination);
+            console.log(courier);
+            $("#courier").val(courier);
                 if(courier){
                     $.ajax({
                     url:"/origin="+origin+"&destination="+destination+"&weight="+weight+"&courier="+courier,

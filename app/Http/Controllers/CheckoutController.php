@@ -85,7 +85,7 @@ class CheckoutController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+        CURLOPT_URL => "https://pro.rajaongkir.com/api/province",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -93,7 +93,7 @@ class CheckoutController extends Controller
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => array(
-            "key: 9d96e5bd15910749ba3fc2dbd3fc4761"
+            "key: 752483d1f547e051295d7ad5b140b3db"
         ),
         ));
 
@@ -114,7 +114,7 @@ class CheckoutController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/city?&province=$id",
+        CURLOPT_URL => "https://pro.rajaongkir.com/api/city?&province=$id",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -122,7 +122,7 @@ class CheckoutController extends Controller
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => array(
-            "key: 9d96e5bd15910749ba3fc2dbd3fc4761"
+            "key: 752483d1f547e051295d7ad5b140b3db"
         ),
         ));
 
@@ -141,18 +141,19 @@ class CheckoutController extends Controller
     }
     public function get_ongkir($origin, $destination, $weight, $courier){
         $curl = curl_init();
+
         curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+        CURLOPT_URL => "https://pro.rajaongkir.com/api/cost",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "origin=$origin&destination=$destination&weight=$weight&courier=$courier",
+        CURLOPT_POSTFIELDS => "origin=$origin&originType=city&destination=$destination&destinationType=subdistrict&weight=$weight&courier=$courier",
         CURLOPT_HTTPHEADER => array(
-        "content-type: application/x-www-form-urlencoded",
-        "key: 9d96e5bd15910749ba3fc2dbd3fc4761"
+            "content-type: application/x-www-form-urlencoded",
+            "key: 752483d1f547e051295d7ad5b140b3db"
         ),
         ));
         $response = curl_exec($curl);
@@ -203,6 +204,7 @@ class CheckoutController extends Controller
             'id_address' => $req->id_address,
             'total_berat' => $req->berat,
             'total_ongkir' => $req->ongkir,
+            'kurir' => $req->kurir,
             'total' => $req->total,
         ]);
         $hsl3 = Cart::where('id_user', session('user-session')->id)->update([

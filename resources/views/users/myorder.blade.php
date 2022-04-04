@@ -29,6 +29,7 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="card">
                             <div class="card-body">
+
                                 <div class="row">
                                     @foreach ($transaction as $t )
                                     @if ($t->status == 0)
@@ -84,6 +85,13 @@
                                                             <p>{{ $t->id_transaction}}</p>
                                                             <h4>{{$p->name}}</h4>
                                                             <h4>Rp.{{$p->harga}}</h4>
+                                                            @foreach ($getaddress as $g )
+                                                            @if ($g->ctid == $t->id_address)
+                                                                <small>
+                                                                    {{ $g->address}}, {{$g->city_name}}, {{$g->subdistrict_name }}, {{$g->province }}, {{$g->kd_pos }}
+                                                                </small>
+                                                            @endif
+                                                        @endforeach
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -115,7 +123,22 @@
                                                             <p>{{ $t->id_transaction}}</p>
                                                             <h4>{{$p->name}}</h4>
                                                             <h4>Rp.{{$p->harga}}</h4>
+                                                            @foreach ($getaddress as $g )
+                                                            @if ($g->ctid == $t->id_address)
+                                                                <small>
+                                                                    {{ $g->address}}, {{$g->city_name}}, {{$g->subdistrict_name }}, {{$g->province }}, {{$g->kd_pos }}
+                                                                </small>
+                                                            @endif
+                                                            @endforeach
+                                                            <form action="{{ route('cekresi')}}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="kurir" value="{{$t->kurir}}" class="form-control">
+                                                                <input type="text" name="resi">
+                                                                <button class="btn btn-success">Cek resi</button>
+                                                            </form>
+
                                                         </div>
+
                                                     @endif
                                                 @endforeach
                                             @endif
