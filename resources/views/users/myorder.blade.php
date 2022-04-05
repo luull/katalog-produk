@@ -120,9 +120,16 @@
                                                             <hr>
                                                         </div>
                                                         <div class="col-md-10">
+                                                            <p style="float: right">No Resi : {{ $t->resi}}</p>
                                                             <p>{{ $t->id_transaction}}</p>
                                                             <h4>{{$p->name}}</h4>
                                                             <h4>Rp.{{$p->harga}}</h4>
+                                                            <form action="{{ route('cekresi')}}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="kurir" value="{{$t->kurir}}" class="form-control">
+                                                                <input type="hidden" value="{{$t->resi}}" name="resi">
+                                                                <button class="btn btn-success btn-sm" style="float: right;">Lacak pengiriman</button>
+                                                            </form>
                                                             @foreach ($getaddress as $g )
                                                             @if ($g->ctid == $t->id_address)
                                                                 <small>
@@ -130,12 +137,6 @@
                                                                 </small>
                                                             @endif
                                                             @endforeach
-                                                            <form action="{{ route('cekresi')}}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="kurir" value="{{$t->kurir}}" class="form-control">
-                                                                <input type="text" name="resi">
-                                                                <button class="btn btn-success">Cek resi</button>
-                                                            </form>
 
                                                         </div>
 

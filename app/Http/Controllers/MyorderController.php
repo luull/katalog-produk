@@ -37,6 +37,8 @@ class MyorderController extends Controller
         ->where('contact.id_user', '=', session('user-session')->id)
         ->get();
         $countcart = Cart::where('id_user', session('user-session')->id)->count();
+        $resi = session()->get('manifest');
+        // dd($resi);
         return view("users.myorder", compact('countcart','transaction','list','product','getaddress'));
     }
     public function cekresi(Request $req){
@@ -67,8 +69,10 @@ class MyorderController extends Controller
                     echo "cURL Error #:" . $err;
                     } else {
                         $response=json_decode($response,true);
-                        $data_resi = $response['rajaongkir']['result'];
-                        dd($data_resi);
+                        $data_resi = $response['rajaongkir']['result']['manifest'];
+                        $noresi = $req->resi;
+                        // dd($data_resi);
+                        return view("users.tracking", compact('data_resi','noresi'));
                     }
-            }
     }
+}
