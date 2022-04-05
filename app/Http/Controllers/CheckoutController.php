@@ -204,6 +204,7 @@ class CheckoutController extends Controller
             'id_address' => $req->id_address,
             'total_berat' => $req->berat,
             'total_ongkir' => $req->ongkir,
+            'etd' => $req->etd,
             'kurir' => $req->kurir,
             'total' => $req->total,
         ]);

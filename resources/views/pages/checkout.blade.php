@@ -86,6 +86,7 @@
                                 <input type="hidden" name="id_transaction" value="{{$getid}}">
                                 <input type="hidden" name="id_address" value="{{$getaddress->ctid}}">
                                 <input type="hidden" name="ongkir" id="get_ongkir">
+                                <input type="hidden" name="etd" id="etd">
                                 <input type="hidden" name="berat" value="{{$berat}}">
                                 <input type="hidden" name="total" id="get_total">
                                 <input type="hidden" name="kurir" id="courier">
@@ -213,7 +214,7 @@ $(document).ready(function(){
                                         separator = sisa ? '.' : '';
                                         hasil += separator + ribuan.join('.');
                                     }
-                                    $('select[name="layanan"]').append('<option value="'+ key +'" harga_ongkir="'+value2.value+'">' + value1.service + '-' +hasil+ '</option>');
+                                    $('select[name="layanan"]').append('<option value="'+ key +'" harga_ongkir="'+value2.value+'" etd="'+value2.etd+'">' + value1.service + '-' +hasil+ ' Estimasi ' +value2.etd+ '</option>');
                                 });
                             });
                         });
@@ -225,7 +226,9 @@ $(document).ready(function(){
         });
         $('select[name="layanan"]').on('change', function(){
             var harga_ongkir = $("#layanan option:selected").attr("harga_ongkir");
+            var etd = $("#layanan option:selected").attr("etd");
             $("#ongkoskirim").val(harga_ongkir);
+            $("#etd").val(etd);
             let totalbelanja = $("input[name=totalbelanja]").val();
             // menampilkan hasil nama harga ongkir dari select layanan yg kita pilih
             // kita akan menampilkan harga ongkirnya di id ongkos kirim, jadi kalian bisa buat inputan dengan id ongkos kirim

@@ -8,21 +8,21 @@
     @endif
 <div class="row">
     @include("users.sidebar")
-    <div class="col-md-10">
+    <div class="col-md-10 mb-3">
         <div class="row">
             <div class="col-md-12 mb-5">
                 <ul class="nav nav-tabs  mb-3 mt-3" id="simpletab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Belum Dibayar</a>
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Belum Dibayar ({{$count1}})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Dibayar</a>
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Dibayar ({{$count2}})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Dikemas</a>
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Dikemas ({{$count3}})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile2-tab" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile2" aria-selected="false">Dikirim</a>
+                        <a class="nav-link" id="profile2-tab" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile2" aria-selected="false">Dikirim ({{$count4}})</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="simpletabContent">
@@ -37,13 +37,13 @@
                                             @if ($l->id_transaction == $t->id_transaction)
                                                 @foreach ($product as $p )
                                                     @if ($p->id == $l->id_barang)
-                                                        <div class="col-md-2">
+                                                        <div class="col-md-2 mb-3">
                                                             <div class="text-center">
                                                                 <img src="{{ asset($p->image)}}" class="img-fluid" alt="" style="max-height: 120px !important;">
                                                             </div>
                                                             <hr>
                                                         </div>
-                                                        <div class="col-md-10">
+                                                        <div class="col-md-10 mb-3">
                                                             <p>{{ $t->id_transaction}}</p>
                                                             <h4>{{$p->name}}</h4>
                                                             <h4>Rp.{{$p->harga}}</h4>
@@ -55,6 +55,7 @@
                                                                 @endif
                                                             @endforeach
                                                         </div>
+                                                        <hr>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -75,13 +76,13 @@
                                             @if ($l->id_transaction == $t->id_transaction)
                                                 @foreach ($product as $p )
                                                     @if ($p->id == $l->id_barang)
-                                                        <div class="col-md-2">
+                                                        <div class="col-md-2 mb-3">
                                                             <div class="text-center">
                                                                 <img src="{{ asset($p->image)}}" class="img-fluid" alt="" style="max-height: 120px !important;">
                                                             </div>
                                                             <hr>
                                                         </div>
-                                                        <div class="col-md-10">
+                                                        <div class="col-md-10 mb-3">
                                                             <p>{{ $t->id_transaction}}</p>
                                                             <h4>{{$p->name}}</h4>
                                                             <h4>Rp.{{$p->harga}}</h4>
@@ -93,6 +94,7 @@
                                                             @endif
                                                         @endforeach
                                                         </div>
+                                                        <hr>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -108,22 +110,23 @@
                             <div class="card-body">
                                 <div class="row">
                                     @foreach ($transaction as $t )
-                                    @if ($t->status == 3)
+                                    @if ($t->status == 2)
                                         @foreach ($list as $l )
                                             @if ($l->id_transaction == $t->id_transaction)
                                                 @foreach ($product as $p )
                                                     @if ($p->id == $l->id_barang)
-                                                        <div class="col-md-2">
+                                                        <div class="col-md-2 mb-3">
                                                             <div class="text-center">
                                                                 <img src="{{ asset($p->image)}}" class="img-fluid" alt="" style="max-height: 120px !important;">
                                                             </div>
                                                             <hr>
                                                         </div>
-                                                        <div class="col-md-10">
+                                                        <div class="col-md-10 mb-3">
                                                             <p>{{ $t->id_transaction}}</p>
                                                             <h4>{{$p->name}}</h4>
                                                             <h4>Rp.{{$p->harga}}</h4>
                                                         </div>
+                                                        <hr>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -139,29 +142,23 @@
                             <div class="card-body">
                                 <div class="row">
                                     @foreach ($transaction as $t )
-                                    @if ($t->status == 2)
+                                    @if ($t->status == 3)
                                         @foreach ($list as $l )
                                             @if ($l->id_transaction == $t->id_transaction)
                                                 @foreach ($product as $p )
                                                     @if ($p->id == $l->id_barang)
-                                                        <div class="col-md-2">
+                                                        <div class="col-md-2 mb-3">
                                                             <div class="text-center">
                                                                 <img src="{{ asset($p->image)}}" class="img-fluid" alt="" style="max-height: 120px !important;">
                                                             </div>
                                                             <hr>
                                                         </div>
-                                                        <div class="col-md-10">
+                                                        <div class="col-md-8 mb-3">
                                                             <p style="float: right">No Resi : {{ $t->resi}}</p>
                                                             <p>{{ $t->id_transaction}}</p>
                                                             <h4>{{$p->name}}</h4>
                                                             <h4>Rp.{{$p->harga}}</h4>
-                                                            <form action="{{ route('cekresi')}}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="id" value="{{$t->id_transaction}}" class="form-control">
-                                                                <input type="hidden" name="kurir" value="{{$t->kurir}}" class="form-control">
-                                                                <input type="hidden" value="{{$t->resi}}" name="resi">
-                                                                <button class="btn btn-success btn-sm" style="float: right;">Lacak pengiriman</button>
-                                                            </form>
+
                                                             @foreach ($getaddress as $g )
                                                             @if ($g->ctid == $t->id_address)
                                                                 <small>
@@ -169,6 +166,16 @@
                                                                 </small>
                                                             @endif
                                                             @endforeach
+
+                                                        </div>
+                                                        <div class="col-md-2 mb-5">
+                                                            <form action="{{ route('cekresi')}}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="id" value="{{$t->id_transaction}}" class="form-control">
+                                                                <input type="hidden" name="kurir" value="{{$t->kurir}}" class="form-control">
+                                                                <input type="hidden" value="{{$t->resi}}" name="resi">
+                                                                <button class="btn btn-success btn-sm">Lacak pengiriman</button>
+                                                            </form>
 
                                                         </div>
 

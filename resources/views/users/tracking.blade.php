@@ -21,7 +21,9 @@
                             <p style="float: right"><strong>{{$noresi}}</strong></p>
                            <p class="mb-0">Dikirim dengan  {{$data_paket['courier_name']}} ({{$data_paket['service_code']}})</p>
                            @if ($data_paket['status'] != "ON PROCESS")
-                                <p><strong>PESANAN TELAH DITERIMA OLEH {{$data_status['pod_receiver']}}</strong></p>
+                           <p><strong>PESANAN TELAH DITERIMA OLEH {{$data_status['pod_receiver']}}</strong></p>
+                           @else
+                           <p class="mb-0">Estimasi Kedatangan {{$etd->etd}} Hari</p>
                            @endif
                         </div>
 

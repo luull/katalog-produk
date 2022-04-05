@@ -37,9 +37,21 @@ class MyorderController extends Controller
         ->where('contact.id_user', '=', session('user-session')->id)
         ->get();
         $countcart = Cart::where('id_user', session('user-session')->id)->count();
+        $count1 = Transaction::where('id_user', '=', session('user-session')->id)
+                    ->where('status', '=', 0)
+                    ->count();
+        $count2 = Transaction::where('id_user', '=', session('user-session')->id)
+                    ->where('status', '=', 1)
+                    ->count();
+        $count3 = Transaction::where('id_user', '=', session('user-session')->id)
+                    ->where('status', '=', 2)
+                    ->count();
+        $count4 = Transaction::where('id_user', '=', session('user-session')->id)
+                    ->where('status', '=', 3)
+                    ->count();
         $resi = session()->get('manifest');
         // dd($resi);
-        return view("users.myorder", compact('countcart','transaction','list','product','getaddress'));
+        return view("users.myorder", compact('countcart','transaction','list','product','getaddress','count1','count2','count3','count4'));
     }
     public function cekresi(Request $req){
 
@@ -75,8 +87,9 @@ class MyorderController extends Controller
                         // dd($data_resi);
                         $noresi = $req->resi;
                         $idtrans = $req->id;
+                        $etd = Transaction::where('id_transaction', $req->id)->first();
                         // dd($data_resi);
-                        return view("users.tracking", compact('data_resi','noresi','data_paket','idtrans','data_status'));
+                        return view("users.tracking", compact('data_resi','noresi','data_paket','idtrans','data_status','etd'));
                     }
     }
 }
