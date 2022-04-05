@@ -14,16 +14,32 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-header">
-                            <a href="/myorder"><i class="fa fa-angle-left"></i> Kembali</a>
-                            <p style="float: right"><strong>{{$noresi}}</strong></p>
+                            <a href="/myorder" style="float: left"><i class="fa fa-angle-left"></i> Kembali</a>
+                            <p style="float: right">{{$idtrans}}</p>
+                            <br>
                             <hr>
+                            <p style="float: right"><strong>{{$noresi}}</strong></p>
+                           <p class="mb-0">Dikirim dengan  {{$data_paket['courier_name']}} ({{$data_paket['service_code']}})</p>
+                           @if ($data_paket['status'] != "ON PROCESS")
+                                <p><strong>PESANAN TELAH DITERIMA OLEH {{$data_status['pod_receiver']}}</strong></p>
+                           @endif
                         </div>
+
                         <div class="timeline-line">
-                            @foreach ($data_resi as $r )
+                            @foreach ($data_resi as $key => $r )
                             <div class="item-timeline">
                                 <p class="t-time"> <small><strong>{{date('H:i', strtotime($r['manifest_time'])) }}</strong> </small></p>
-                                <div class="t-dot t-dot-info">
-                                </div>
+
+                                @if ($data_paket['status'] != "ON PROCESS")
+                                    <div class="t-dot t-dot-success">
+                                    </div>
+                                @elseif ($key == 0)
+                                    <div class="t-dot t-dot-info">
+                                    </div>
+                                @else
+                                    <div class="t-dot t-dot-dark">
+                                    </div>
+                                @endif
                                 <div class="t-text">
                                     <p> {{$r['manifest_description']}}</p>
                                     <p class="t-meta-time"> {{$r['city_name']}}</p>

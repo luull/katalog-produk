@@ -104,53 +104,6 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                       <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    @foreach ($transaction as $t )
-                                    @if ($t->status == 2)
-                                        @foreach ($list as $l )
-                                            @if ($l->id_transaction == $t->id_transaction)
-                                                @foreach ($product as $p )
-                                                    @if ($p->id == $l->id_barang)
-                                                        <div class="col-md-2">
-                                                            <div class="text-center">
-                                                                <img src="{{ asset($p->image)}}" class="img-fluid" alt="" style="max-height: 120px !important;">
-                                                            </div>
-                                                            <hr>
-                                                        </div>
-                                                        <div class="col-md-10">
-                                                            <p style="float: right">No Resi : {{ $t->resi}}</p>
-                                                            <p>{{ $t->id_transaction}}</p>
-                                                            <h4>{{$p->name}}</h4>
-                                                            <h4>Rp.{{$p->harga}}</h4>
-                                                            <form action="{{ route('cekresi')}}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="kurir" value="{{$t->kurir}}" class="form-control">
-                                                                <input type="hidden" value="{{$t->resi}}" name="resi">
-                                                                <button class="btn btn-success btn-sm" style="float: right;">Lacak pengiriman</button>
-                                                            </form>
-                                                            @foreach ($getaddress as $g )
-                                                            @if ($g->ctid == $t->id_address)
-                                                                <small>
-                                                                    {{ $g->address}}, {{$g->city_name}}, {{$g->subdistrict_name }}, {{$g->province }}, {{$g->kd_pos }}
-                                                                </small>
-                                                            @endif
-                                                            @endforeach
-
-                                                        </div>
-
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                                    @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -180,6 +133,55 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    @foreach ($transaction as $t )
+                                    @if ($t->status == 2)
+                                        @foreach ($list as $l )
+                                            @if ($l->id_transaction == $t->id_transaction)
+                                                @foreach ($product as $p )
+                                                    @if ($p->id == $l->id_barang)
+                                                        <div class="col-md-2">
+                                                            <div class="text-center">
+                                                                <img src="{{ asset($p->image)}}" class="img-fluid" alt="" style="max-height: 120px !important;">
+                                                            </div>
+                                                            <hr>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <p style="float: right">No Resi : {{ $t->resi}}</p>
+                                                            <p>{{ $t->id_transaction}}</p>
+                                                            <h4>{{$p->name}}</h4>
+                                                            <h4>Rp.{{$p->harga}}</h4>
+                                                            <form action="{{ route('cekresi')}}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="id" value="{{$t->id_transaction}}" class="form-control">
+                                                                <input type="hidden" name="kurir" value="{{$t->kurir}}" class="form-control">
+                                                                <input type="hidden" value="{{$t->resi}}" name="resi">
+                                                                <button class="btn btn-success btn-sm" style="float: right;">Lacak pengiriman</button>
+                                                            </form>
+                                                            @foreach ($getaddress as $g )
+                                                            @if ($g->ctid == $t->id_address)
+                                                                <small>
+                                                                    {{ $g->address}}, {{$g->city_name}}, {{$g->subdistrict_name }}, {{$g->province }}, {{$g->kd_pos }}
+                                                                </small>
+                                                            @endif
+                                                            @endforeach
+
+                                                        </div>
+
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>

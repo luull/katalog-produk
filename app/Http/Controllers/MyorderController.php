@@ -70,9 +70,13 @@ class MyorderController extends Controller
                     } else {
                         $response=json_decode($response,true);
                         $data_resi = $response['rajaongkir']['result']['manifest'];
-                        $noresi = $req->resi;
+                        $data_paket = $response['rajaongkir']['result']['summary'];
+                        $data_status = $response['rajaongkir']['result']['delivery_status'];
                         // dd($data_resi);
-                        return view("users.tracking", compact('data_resi','noresi'));
+                        $noresi = $req->resi;
+                        $idtrans = $req->id;
+                        // dd($data_resi);
+                        return view("users.tracking", compact('data_resi','noresi','data_paket','idtrans','data_status'));
                     }
     }
 }
