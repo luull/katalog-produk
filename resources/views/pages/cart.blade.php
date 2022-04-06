@@ -26,11 +26,16 @@
                                 @if ($d->id_user == session('user-session')->id)
                                 <div class="card card-cart mb-3 ">
                                     @if($d->status == 0)
-
-                                    <label class="containers mt-3"> &nbsp;
+                                    <form id="myForm" action="{{ route('add-dummy')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" value="{{$d->pid}}" name="id_barang">
+                                        <input type="hidden" value="{{$d->berat}}" name="berat">
+                                        <button type="submit" class="btn-uncheckbox mt-3"></button>
+                                    </form>
+                                    {{-- <label class="containers mt-3"> &nbsp;
                                         <input type="checkbox" value="{{$d->pid}}" name="values"/>
                                         <span class="checkmark"></span>
-                                    </label>
+                                    </label> --}}
                                     @else
                                     <form action="{{ route('delete-dummy')}}" class="mt-3" method="post">
                                         @csrf
@@ -131,23 +136,23 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-  var ckbox = $("input[name='values']");
-  var chkId = '';
-  $("input[name='values']").on('click', function() {
+//   var ckbox = $("input[name='values']");
+//   var chkId = '';
+//   $("input[name='values']").on('click', function() {
 
-    if (ckbox.is(':checked')) {
-      $("input[name='values']:checked").each ( function() {
-        berat = document.getElementById("berat").value;
-   		chkId = $(this).val() + ",";
-        chkId = chkId.slice(0, -1);
- 	  });
+//     if (ckbox.is(':checked')) {
+//       $("input[name='values']:checked").each ( function() {
+//         berat = document.getElementById("berat").value;
+//    		chkId = $(this).val() + ",";
+//         chkId = chkId.slice(0, -1);
+//  	  });
 
-    //    console.log(chkId); // return value of checkbox checked
-       document.getElementById("getID").value = chkId;
-       document.getElementById("beratnya").value = berat;
-       document.getElementById("myForm").submit();
-    }
-  });
+//     //    console.log(chkId); // return value of checkbox checked
+//        document.getElementById("getID").value = chkId;
+//        document.getElementById("beratnya").value = berat;
+//        document.getElementById("myForm").submit();
+//     }
+//   });
   $(".edit").click(function(){
             var idnya=$(this).attr('id').split('-');
             var id=idnya[1];

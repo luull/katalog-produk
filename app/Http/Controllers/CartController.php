@@ -14,10 +14,10 @@ class CartController extends Controller
     public function index()
     {
         if(empty(session('user-session'))){
-            redirect('/');
+            return redirect('/');
         }
-        elseif(empty(session('user-session')->id)){
-            redirect('/');
+        if(empty(session('user-session')->id)){
+            return redirect('/');
         }
         $countcart = Cart::where('id_user', session('user-session')->id)->count();
         session(['countcart' => $countcart]);
@@ -40,6 +40,12 @@ class CartController extends Controller
     }
     public function create(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $validasi = Cart::where('id_user', session('user-session')->id)->first();
         if($validasi){
             $validasi2 = Cart::where('id_barang', $req->id_barang)->first();
@@ -81,6 +87,12 @@ class CartController extends Controller
     }
     public function delete(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $hsl = Cart::find($req->id)->delete();
         if ($hsl) {
             return redirect()->back()->with(['message' => 'Barang berhasil dihapus dari keranjang', 'alert' => 'success']);
@@ -90,6 +102,12 @@ class CartController extends Controller
     }
     public function dummy(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $getcart = Cart::where('id_user', '=', session('user-session')->id)
         ->where('id_barang','=', $req->id_barang)
         ->first();
@@ -155,6 +173,12 @@ class CartController extends Controller
     }
     public function find(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $hsl = Cart::find($req->id);
         if ($hsl) {
             return response()->json($hsl);
@@ -164,6 +188,12 @@ class CartController extends Controller
     }
     public function updateqty(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         // dd($req->qty);
         $hsl = Cart::where('id', $req->id)->update([
             'qty' => $req->qty
@@ -187,6 +217,12 @@ class CartController extends Controller
     }
     public function deletedummy(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $getcart = Cart::where('id_barang', $req->id_barang)->first();
         $getdummy = Dumy::where('id_barang', $req->id_barang)->first();
         $hsl = Cart::where('id', $getcart->id)->update([

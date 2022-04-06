@@ -16,6 +16,12 @@ class UsersController extends Controller
 {
     public function index()
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $data = User::where('id', session('user-session')->id)->first();
         $countcontact = Contact::where('id_user', session('user-session')->id)->first();
         // dd(session('user-session')->id);
@@ -36,6 +42,12 @@ class UsersController extends Controller
         // $request->validate([
         //     'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         // ]);
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         try {
         $photo = '';
         if ($request->hasfile('photo')) {
@@ -61,6 +73,12 @@ class UsersController extends Controller
 
     }
     public function addcontact(Request $request){
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         try {
         $request->validate([
             'category' => 'required',
@@ -97,6 +115,12 @@ class UsersController extends Controller
 
     }
     public function updatestatus(Request $request){
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         try {
             Contact::where('status','=', 1)->where('pick','=',1)->update([
                 'status' => '0',
@@ -118,6 +142,12 @@ class UsersController extends Controller
     }
     public function find(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $hsl = Contact::find($req->id);
         if ($hsl) {
             return response()->json($hsl);
@@ -127,6 +157,12 @@ class UsersController extends Controller
     }
     public function delete(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $hsl = Contact::find($req->id)->delete();
         if ($hsl) {
             return redirect()->back()->with(['message' => 'Data berhasil dihapus', 'color' => 'alert-success']);

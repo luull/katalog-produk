@@ -23,10 +23,10 @@ class CheckoutController extends Controller
     public function index(Request $req)
     {
         if(empty(session('user-session'))){
-            redirect('/');
+            return redirect('/');
         }
-        elseif(empty(session('user-session')->id)){
-            redirect('/');
+        if(empty(session('user-session')->id)){
+            return redirect('/');
         }
         $listtransaction = Payget::where('id_transaction', $req->id)->get()->toArray();
         $gettotal = Payget::where('id_transaction', $req->id)->sum('price');
@@ -140,6 +140,12 @@ class CheckoutController extends Controller
         }
     }
     public function get_ongkir($origin, $destination, $weight, $courier){
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -170,6 +176,12 @@ class CheckoutController extends Controller
     public function changepick(Request $request)
     {
         // dd($request->nama_kota);
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         Contact::where('pick', 1)->update([
             'pick' => '0'
         ]);
@@ -186,6 +198,12 @@ class CheckoutController extends Controller
 
     public function transaction(Request $req)
     {
+        if(empty(session('user-session'))){
+            return redirect('/');
+        }
+        if(empty(session('user-session')->id)){
+            return redirect('/');
+        }
         $data = Dumy::where('id_transaction', $req->id_transaction)->get();
         // dd($data);
         foreach ($data as $item)  {

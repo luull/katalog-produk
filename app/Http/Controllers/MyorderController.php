@@ -17,10 +17,10 @@ class MyorderController extends Controller
     public function index(Request $req)
     {
         if(empty(session('user-session'))){
-            redirect('/');
+            return redirect('/');
         }
-        elseif(empty(session('user-session')->id)){
-            redirect('/');
+        if(empty(session('user-session')->id)){
+            return redirect('/');
         }
         if ($req->session()->has('id_transaction')) {
             $req->session()->forget('id_transaction');
