@@ -56,7 +56,7 @@ class CartController extends Controller
                     'qty' => $tambah
                 ]);
                 if($hsl){
-                    return redirect('/cart')->with(['message' => 'Barang berhasil ditambah ke keranjang', 'alert' => 'success']);
+                    return redirect()->back()->with(['message' => 'Barang berhasil ditambah ke keranjang', 'alert' => 'success']);
                 }else{
                     return redirect()->back()->with(['message' => 'Barang gagal ditambah ke keranjang', 'alert' => 'success']);
                 }

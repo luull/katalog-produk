@@ -54,6 +54,7 @@ Route::post('/transaction/payment', 'CheckoutController@transaction')->name('add
 Route::get('/myorder', 'MyorderController@index');
 Route::post('/cekresi', 'MyorderController@cekresi')->name('cekresi');
 Route::get('/tracking', 'MyorderController@tracking');
+Route::get('/tracking/{id}/finish', 'MyorderController@finish');
 
 
 Route::get('/login/backend', 'Backend\LoginController@index');

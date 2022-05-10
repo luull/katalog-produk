@@ -36,14 +36,20 @@
                                     <div class="t-dot t-dot-success">
                                     </div>
                                 @elseif ($key == 0)
-                                    <div class="t-dot t-dot-info">
+                                    <div class="t-dot t-dot-success">
                                     </div>
                                 @else
                                     <div class="t-dot t-dot-dark">
                                     </div>
                                 @endif
                                 <div class="t-text">
+                                    @if ($data_paket['status'] != "ON PROCESS")
                                     <p> {{$r['manifest_description']}}</p>
+                                    @elseif ($key == 0)
+                                    <p style="color: #9fc960"> {{$r['manifest_description']}}</p>
+                                    @else
+                                    <p> {{$r['manifest_description']}}</p>
+                                    @endif
                                     <p class="t-meta-time"> {{$r['city_name']}}</p>
                                     <small>{{$r['manifest_date']}}</small>
                                 </div>

@@ -49,9 +49,12 @@ class MyorderController extends Controller
         $count4 = Transaction::where('id_user', '=', session('user-session')->id)
                     ->where('status', '=', 3)
                     ->count();
+        $count5 = Transaction::where('id_user', '=', session('user-session')->id)
+                    ->where('status', '=', 4)
+                    ->count();
         $resi = session()->get('manifest');
         // dd($resi);
-        return view("users.myorder", compact('countcart','transaction','list','product','getaddress','count1','count2','count3','count4'));
+        return view("users.myorder", compact('countcart','transaction','list','product','getaddress','count1','count2','count3','count4','count5'));
     }
     public function cekresi(Request $req){
 
@@ -91,5 +94,15 @@ class MyorderController extends Controller
                         // dd($data_resi);
                         return view("users.tracking", compact('data_resi','noresi','data_paket','idtrans','data_status','etd'));
                     }
+    }
+    public function finish(Request $req){
+        $hsl = Transaction::where('id_transaction', $req->id)->update([
+            'status' => 4
+        ]);
+        if($hsl){
+            return redirect()->back()->with(['message' => 'Pesanan Berhasil Selesai', 'alert' => 'success']);
+        }else{
+            return redirect()->back()->with(['message' => 'Pesanan Selesai Gagal diproses', 'alert' => 'danger']);
+        }
     }
 }
