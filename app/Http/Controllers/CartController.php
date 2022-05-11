@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Contact;
 use App\Product;
 use App\Dumy;
 use App\Payget;

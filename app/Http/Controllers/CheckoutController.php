@@ -28,6 +28,10 @@ class CheckoutController extends Controller
         if(empty(session('user-session')->id)){
             return redirect('/');
         }
+        $valid = Contact::where('id_user', session('user-session')->id)->count();
+        if($valid == 0){
+            return redirect('/dashboard')->with(['message' => 'Daftarkan alamatmu terlebih dahulu', 'alert' => 'success']);
+        }
         $listtransaction = Payget::where('id_transaction', $req->id)->get()->toArray();
         $gettotal = Payget::where('id_transaction', $req->id)->sum('price');
         $getemail = Contact::where('id_user', session('user-session')->id)->first();

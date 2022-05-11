@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2022 at 05:01 PM
+-- Generation Time: May 10, 2022 at 08:16 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -80,10 +80,12 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `id_user`, `id_barang`, `qty`, `status`) VALUES
-(48, 4, 7, 2, 0),
 (49, 4, 18, 4, 0),
-(51, 4, 61, 1, 0),
-(56, 21, 28, 3, 0);
+(57, 4, 7, 1, 0),
+(58, 4, 5, 1, 1),
+(59, 21, 17, 4, 0),
+(60, 21, 11, 1, 0),
+(61, 21, 13, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -639,7 +641,7 @@ CREATE TABLE `contact` (
   `id_user` int(11) DEFAULT NULL,
   `category` text DEFAULT NULL,
   `province` text DEFAULT NULL,
-  `city` varchar(100) DEFAULT NULL,
+  `city` int(11) NOT NULL,
   `subdistrict` int(11) DEFAULT NULL,
   `address` text DEFAULT NULL,
   `kd_pos` int(100) DEFAULT NULL,
@@ -653,10 +655,10 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `id_user`, `category`, `province`, `city`, `subdistrict`, `address`, `kd_pos`, `phone`, `status`, `pick`) VALUES
-(8, 21, 'kantor', 'DKI Jakarta', '153', 2105, 'sdfafaqwdfwdasd', 1232, '62812731273', 0, 0),
-(9, 21, 'rumah', 'Jawa Barat', '54', 740, 'ZSJHDFJKASJKNASD', 1232, '62812731273', 0, 1),
-(10, 21, 'toko', 'Bali', '32', 473, 'adasdasdsadsdadasdasd', 13212, '62812312312', 1, 0),
-(11, 4, 'rumah', 'Banten', '232', 3299, 'asdasdasdasdasd', 13212, '628127712', 1, 1);
+(8, 21, 'kantor', 'DKI Jakarta', 153, 2105, 'sdfafaqwdfwdasd', 1232, '62812731273', 0, 0),
+(9, 21, 'rumah', 'Jawa Barat', 54, 740, 'ZSJHDFJKASJKNASD', 1232, '62812731273', 0, 0),
+(10, 21, 'toko', 'Bali', 32, 473, 'adasdasdsadsdadasdasd', 13212, '62812312312', 1, 1),
+(14, 4, 'rumah', 'Jawa Barat', 54, 740, 'sdfdsfdfsfsdf', 1232, '62812312312', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -697,6 +699,13 @@ CREATE TABLE `dummy` (
   `berat` varchar(255) NOT NULL,
   `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dummy`
+--
+
+INSERT INTO `dummy` (`id`, `id_transaction`, `id_user`, `id_barang`, `qty`, `berat`, `total`) VALUES
+(325, 'TR-41110052022', 4, 5, 1, '900', 149000);
 
 -- --------------------------------------------------------
 
@@ -758,7 +767,41 @@ INSERT INTO `payget` (`id`, `id_transaction`, `id_user`, `name`, `quantity`, `pr
 (94, 'TR-213405042022', 21, 'Ongkir', 1, 168000),
 (95, 'TR-4305042022', 4, 'Madu Salsabil Plus Royal Jelly', 1, 189000),
 (96, 'TR-42905042022', 4, 'Madu Salsabil Plus Royal Jelly', 1, 189000),
-(97, 'TR-42905042022', 4, 'Ongkir', 1, 53000);
+(97, 'TR-42905042022', 4, 'Ongkir', 1, 53000),
+(98, 'TR-42106042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(99, 'TR-44906042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(100, 'TR-41006042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(101, 'TR-42306042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(102, 'TR-44406042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(103, 'TR-41806042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(104, 'TR-44706042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(105, 'TR-43706042022', 4, 'SHAD Endiabet, 30 kapsul', 1, 149000),
+(106, 'TR-43706042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(107, 'TR-4606042022', 4, 'SHAD Endiabet, 30 kapsul', 1, 149000),
+(108, 'TR-4606042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(109, 'TR-42306042022', 4, 'SHAD Endiabet, 30 kapsul', 1, 149000),
+(110, 'TR-42306042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(111, 'TR-41506042022', 4, 'SHAD Endiabet, 30 kapsul', 1, 149000),
+(112, 'TR-44306042022', 4, 'SHAD Endiabet, 30 kapsul', 1, 149000),
+(113, 'TR-44106042022', 4, 'SHAD Endiabet, 30 kapsul', 1, 149000),
+(114, 'TR-44106042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(115, 'TR-42106042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(116, 'TR-43206042022', 4, 'SHAD Endiabet, 30 kapsul', 1, 149000),
+(117, 'TR-4706042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(118, 'TR-44206042022', 4, 'SHAD Endiabet, 30 kapsul', 1, 149000),
+(119, 'TR-42106042022', 4, 'Shadina Brightening Hand Body Lotion', 4, 65000),
+(120, 'TR-42806042022', 4, 'SHAD Nigella Plus 50 kapsul', 1, 149000),
+(121, 'TR-211806042022', 21, 'Shadina Shampoo Anti Dandruff', 3, 57000),
+(122, 'TR-211806042022', 21, 'SHAD Uliver 30 kapsul', 3, 149000),
+(123, 'TR-212906042022', 21, 'Shadina Shampoo Anti Dandruff', 4, 57000),
+(124, 'TR-213310052022', 21, 'SHAD Shipon, 30 kapsul', 2, 167000),
+(125, 'TR-213310052022', 21, 'SHAD Uliver 30 kapsul', 1, 149000),
+(126, 'TR-213910052022', 21, 'SHAD Shipon, 30 kapsul', 2, 167000),
+(127, 'TR-213910052022', 21, 'SHAD Uliver 30 kapsul', 1, 149000),
+(128, 'TR-213910052022', 21, 'Shadina Shampoo Anti Dandruff', 4, 57000),
+(129, 'TR-213910052022', 21, 'SHAD Shipon, 30 kapsul', 2, 167000),
+(130, 'TR-213910052022', 21, 'SHAD Uliver 30 kapsul', 1, 149000),
+(131, 'TR-41110052022', 4, 'SHAD Nigella Plus 50 kapsul', 1, 149000);
 
 -- --------------------------------------------------------
 
@@ -8232,8 +8275,8 @@ INSERT INTO `transaction` (`id`, `id_transaction`, `id_user`, `id_address`, `tot
 (42, 'TR-212424032022', 21, 8, '1800', '18000', 'sicepat', '004003435150', '', '316000', 3, '2022-03-24 08:03:41'),
 (43, 'TR-211104042022', 21, 8, '900', '9000', 'sicepat', '004004158295', '', '158000', 3, '2022-04-04 14:57:34'),
 (44, 'TR-214804042022', 21, 9, '900', '56000', 'anteraja', '10003903465556', '', '73000', 3, '2022-04-04 15:26:34'),
-(45, 'TR-213405042022', 21, 9, '2700', '168000', 'anteraja', '10003686374735', '5-9', '258000', 3, '2022-04-05 14:22:23'),
-(46, 'TR-42905042022', 4, 11, '900', '53000', 'sicepat', '002861671094', '5-9', '242000', 3, '2022-04-05 14:43:00');
+(45, 'TR-213405042022', 21, 9, '2700', '168000', 'anteraja', '10003686374735', '5-9', '258000', 4, '2022-04-05 14:22:23'),
+(46, 'TR-42905042022', 4, 11, '900', '53000', 'anteraja', '10004524816985', '5-9', '242000', 3, '2022-04-05 14:43:00');
 
 -- --------------------------------------------------------
 
@@ -8303,10 +8346,7 @@ ALTER TABLE `city`
 -- Indexes for table `contact`
 --
 ALTER TABLE `contact`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `city` (`city`),
-  ADD KEY `city_2` (`city`),
-  ADD KEY `city_3` (`city`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `display`
@@ -8395,7 +8435,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -8413,7 +8453,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `display`
@@ -8425,7 +8465,7 @@ ALTER TABLE `display`
 -- AUTO_INCREMENT for table `dummy`
 --
 ALTER TABLE `dummy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=292;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=326;
 
 --
 -- AUTO_INCREMENT for table `list_transaction`
@@ -8437,7 +8477,7 @@ ALTER TABLE `list_transaction`
 -- AUTO_INCREMENT for table `payget`
 --
 ALTER TABLE `payget`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `product`

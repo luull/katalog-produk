@@ -31,9 +31,13 @@ class SearchController extends Controller
         ->get();
         $getid = Product::where('name', 'LIKE', '%' . $search . '%')->first();
         // dd($getid->kategori);
-        $product = Product::where('name', 'LIKE', '%' . $search . '%')
-        ->where('kategori','=', $getid->kategori)
-        ->get();
+        if($getid){
+            $product = Product::where('name', 'LIKE', '%' . $search . '%')
+            ->where('kategori','=', $getid->kategori)
+            ->get();
+        }else{
+            $product = 0;
+        }
         return view("pages.search", compact('product','search','category','getid'));
     }
     public function defaultproduk(Request $req)

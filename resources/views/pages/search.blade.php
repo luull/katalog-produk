@@ -11,6 +11,14 @@
                                 <li class="active mb-2"><a href="/">Beranda</a>
                                 </li>
                                 <li class="mb-2"><a href="javscript:void(0);">Produk</a></li>
+                                @foreach ($category as $c )
+                                    @if ($getid)
+                                        @if($getid->kategori == $c->cid)
+                                            <li class="mb-2"><a href="javscript:void(0);">{{$c->name}}</a></li>
+                                            <li class="mb-2"><a href="javscript:void(0);">{{$c->sub_category}}</a></li>
+                                        @endif
+                                    @endif
+                                @endforeach
                                 <li class="mb-2"><a href="javscript:void(0);">{{$search}}</a></li>
 
                             </ul>
@@ -42,16 +50,27 @@
                                                             <section class="mb-0 mt-0">
                                                                 <div role="menu" class="collapsed" data-toggle="collapse" data-target="#iconAccordion{{$c->id}}" aria-expanded="true" aria-controls="iconAccordion{{$c->id}}">
                                                                     <div class="accordion-icon"><i data-feather="home"></i></div>
-                                                                    <span class="{{$getid->kategori == $c->cid ? 'active-cat' : ''}}">{{$c->name}}</span>  <div class="icons"><svg> ... </svg></div>
+                                                                    @if ($getid)
+                                                                        <span class="{{$getid->kategori == $c->cid ? 'active-cat' : ''}}">{{$c->name}}</span>  <div class="icons"><svg> ... </svg></div>
+                                                                    @else
+                                                                        <span>{{$c->name}}</span>  <div class="icons"><svg> ... </svg></div>
+                                                                    @endif
                                                                 </div>
                                                             </section>
                                                         </div>
-
+                                                        @if ($getid)
                                                         <div id="iconAccordion{{$c->id}}" class="collapse {{$getid->kategori == $c->cid ? 'show' : ''}}" aria-labelledby="..." data-parent="#iconsAccordion">
+                                                        @else
+                                                            <div id="iconAccordion{{$c->id}}" class="collapse" aria-labelledby="..." data-parent="#iconsAccordion">
+                                                        @endif
                                                             <div class="card-body">
 
-                                                                 <p class="mb-0 ml-4">
+                                                                <p class="mb-0 ml-4">
+                                                                     @if ($getid)
                                                                      <i class="fa fa-angle-right mr-3"></i><a class="{{$getid->kategori == $c->cid ? 'active-cat' : ''}}" href="/filterproduct/{{$c->cid}}">{{$c->sub_category}}</a>
+                                                                     @else
+                                                                     <i class="fa fa-angle-right mr-3"></i><a href="/filterproduct/{{$c->cid}}">{{$c->sub_category}}</a>
+                                                                     @endif
                                                                 </p>
 
 
@@ -89,35 +108,37 @@
                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12 col-12">
                         <div class="container-fluid">
                             <hr>
-                            <p class="mb-4">Menampilkan {{ count($product) }} produk untuk "<strong>{{ $search }}</strong>"</p>
-                            @if(count($product) >= 1)
-                                <div class="row mb-3">
-                                    @foreach ($product as $item)
-                                    <?PHP
-                                    $firsturl = str_replace(" ", "%20", $item->name);
-                                    $resulturl = str_replace("&", "n", $firsturl);
-                                    ?>
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-6 col-6 mb-3">
-                                        <a href="/defaultProduk/{{$item->id}}">
-                                        <div class="card" style="width:100% !important;">
-                                            <img src="{{ asset($item->image) }}" class="card-img-top" alt="widget-card-2">
-                                            <div class="card-body product">
-                                                <h5 class="card-title mb-1">{{ $item->name }}</h5>
-                                                <h5 class="mb-2"><b>Rp.<?PHP echo number_format($item->harga); ?></b></h5>
-                                                {{-- <p class="card-text">{!! Str::limit($item->keterangan_singkat, 50, '...') !!}</p> --}}
-
-                                            </div>
-                                        </div>
-                                        </a>
-                                    </div>
-                                    @endforeach
-                                </div>
+                            @if(empty($product))
+                            <p class="mb-4">Menampilkan 0 produk untuk "<strong>{{ $search }}</strong>"</p>
+                            <div class="text-center mt-5">
+                                <h3 class="nunito bolder">Oppss..Produk {{ $search }} tidak ada</h3>
+                                <p>Silahkan gunakan kata kunci yang mudah untuk pencarian</p>
+                                <img src="{{ asset('templates/assets/img/search.png')}}" class="img-fluid mt-3" style="width: 400px;" alt="">
+                            </div>
                             @else
-                                <div class="text-center mt-5">
-                                    <h3 class="nunito bolder">Oppss..Produk {{ $search }} tidak ada</h3>
-                                    <p>Silahkan gunakan kata kunci yang mudah untuk pencarian</p>
-                                    <img src="{{ asset('templates/assets/img/search.png')}}" class="img-fluid mt-3" style="width: 400px;" alt="">
+                            <p class="mb-4">Menampilkan {{ count($product) }} produk untuk "<strong>{{ $search }}</strong>"</p>
+                            <div class="row mb-3">
+                                @foreach ($product as $item)
+                                <?PHP
+                                $firsturl = str_replace(" ", "%20", $item->name);
+                                $resulturl = str_replace("&", "n", $firsturl);
+                                ?>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-6 col-6 mb-3">
+                                    <a href="/defaultProduk/{{$item->id}}">
+                                    <div class="card" style="width:100% !important;">
+                                        <img src="{{ asset($item->image) }}" class="card-img-top" alt="widget-card-2">
+                                        <div class="card-body product">
+                                            <h5 class="card-title mb-1">{{ $item->name }}</h5>
+                                            <h5 class="mb-2"><b>Rp.<?PHP echo number_format($item->harga); ?></b></h5>
+                                            {{-- <p class="card-text">{!! Str::limit($item->keterangan_singkat, 50, '...') !!}</p> --}}
+
+                                        </div>
+                                    </div>
+                                    </a>
                                 </div>
+                                @endforeach
+                            </div>
+
                             @endif
                         </div>
                     </div>

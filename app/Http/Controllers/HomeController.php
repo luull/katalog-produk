@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\City;
+use App\Contact;
 use App\DefaultProduct;
 use App\Product;
 use App\Province;

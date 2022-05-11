@@ -38,7 +38,7 @@
                                             </label>
                                             <select name="kurir" id="kurir" class="form-control">
                                                 <option value="">Pilih kurir</option>
-                                                <option value="jne">JNE</option>
+                                                <option value="jne"> <img src="{{asset('avatar.png')}}" alt=""> JNE</option>
                                                 <option value="tiki">TIKI</option>
                                                 <option value="pos">POS INDONESIA</option>
                                                 <option value="ninja">NINJA XPRESS</option>

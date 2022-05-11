@@ -93,6 +93,16 @@ class UsersController extends Controller
         } else {
             $phonenum = $request->phone;
         }
+        $valid = Contact::where('id_user', session('user-session')->id)->count();
+        $status = null;
+        $pick = null;
+        if($valid == 0){
+            $status = 1;
+            $pick = 1;
+        }else{
+            $status = 0;
+            $pick = 0;
+        }
         $hsl = Contact::create([
             'id_user' => session('user-session')->id,
             'category' => $request->category,
@@ -102,6 +112,8 @@ class UsersController extends Controller
             'phone' => $phonenum,
             'address' => $request->alamat,
             'kd_pos' => $request->kd_pos,
+            'status' => $status,
+            'pick' => $pick,
         ]);
         if($hsl){
             return redirect()->back()->with(['message' => 'Data berhasil ditambahkan', 'color' => 'alert-success']);

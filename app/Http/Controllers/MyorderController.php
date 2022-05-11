@@ -22,6 +22,10 @@ class MyorderController extends Controller
         if(empty(session('user-session')->id)){
             return redirect('/');
         }
+             $valid = Contact::where('id_user', session('user-session')->id)->count();
+        if($valid == 0){
+            return redirect('/dashboard')->with(['message' => 'Daftarkan alamatmu terlebih dahulu', 'alert' => 'success']);
+        }
         if ($req->session()->has('id_transaction')) {
             $req->session()->forget('id_transaction');
         }elseif ($req->session()->has('id_cart')) {
