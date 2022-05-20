@@ -17,6 +17,10 @@ class LoginController extends Controller
     {
         return view("pages.login");
     }
+    public function regis()
+    {
+        return view("pages.signup");
+    }
     public function login(Request $request)
     {
         $request->validate([
@@ -38,6 +42,24 @@ class LoginController extends Controller
             }
         }else {
             return redirect()->back()->with('message', 'Username salah ');
+        }
+    }
+    public function signup(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+        $newUser = User::create([
+            'name' => $request->username,
+            'email' => $request->email,
+            'password' =>  bcrypt($request->password)
+        ]);
+        if($newUser){
+            return redirect('/login')->with('message', 'Registrasi Berhasil, Silahkan Login ');
+        }else{
+            return redirect()->back()->with('message', 'Registrasi Gagal');
         }
     }
     public function logout(Request $request)

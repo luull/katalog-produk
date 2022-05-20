@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', 'HomeController@dashboard');
 Route::get('/login', 'Auth\LoginController@index');
+Route::get('/signup', 'Auth\LoginController@regis');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('/proseslogin', 'Auth\LoginController@login')->name('proseslogin');
+Route::post('/prosesregis', 'Auth\LoginController@signup')->name('prosesregis');
 
 Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
